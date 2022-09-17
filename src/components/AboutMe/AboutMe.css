@@ -1,0 +1,75 @@
+.about-me {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 110px 70px 0;
+}
+
+.about-me__information {
+  display: grid;
+  grid-template-columns: 600px 270px;
+  grid-template-rows: 58px 20px 178px 17px;
+  gap: 18px 30px;
+  margin-top: 66px;
+  justify-content: space-between;
+}
+
+.about-me__name {
+  margin: 0;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+  color: #000000;
+  text-align: left;
+}
+
+.about-me__profession {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11;
+  color: #000000;
+  mix-blend-mode: normal;
+  text-align: left;
+  margin: 0;
+}
+
+.about-me__text {
+  width: 600px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.57;
+  color: #000000;
+  mix-blend-mode: normal;
+  text-align: left;
+  margin: 7px 0 0;
+}
+
+.about-me__link {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  text-decoration: none;
+  text-align: left;
+  margin: 0;
+}
+
+.about-me__image {
+  width: 270px;
+  min-height: 327px;
+  object-fit: cover;
+  border-radius: 10px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: -1;
+}
