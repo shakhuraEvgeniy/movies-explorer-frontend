@@ -2,15 +2,18 @@ import { Route } from 'react-router-dom';
 import Header from '../Header/Header';
 import './App.css';
 import Main from '../Main/Main';
+import SearchForm from '../SearchForm/SearchForm';
 
 function App() {
   return (
-    <div className="App">  
-      <Header />
+    <div className="App">
+      {/* <Header /> */}
       <Route path="/">
-        <Main />
+      <SearchForm />
+        {/* <Main /> */}
       </Route>
-      <Route path="/movies"></Route>
+      <Route path="/movies">
+      </Route>
       <Route path="/saved-movies"></Route>
       <Route path="/profile"></Route>
       <Route path="/signin"></Route>
