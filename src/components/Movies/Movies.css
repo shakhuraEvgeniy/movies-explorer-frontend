@@ -1,0 +1,19 @@
+.movies {
+  padding: 0 70px;
+  max-width: 1280px;
+  margin: auto;
+}
+
+.movies__button {
+  padding: 10px 147px;
+  border-radius: 5px;
+  margin: 50px auto 0;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000000;
+  background-color: #fff;
+  border: 1px solid rgba(170, 170, 170, 0.2);
+}

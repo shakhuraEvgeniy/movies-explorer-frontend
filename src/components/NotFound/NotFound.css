@@ -1,0 +1,36 @@
+.notFound {
+  height: 700px;
+}
+
+.notFound__title {
+  margin: 246px auto 0;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169px;
+  text-align: center;
+  color: #000000;
+}
+
+.notFound__subtitle {
+  margin: 5px auto 184px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #000000;
+}
+
+.notFound__link {
+  text-decoration: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #3456f3;
+}

@@ -1,21 +1,19 @@
 .header {
-  padding: 0 70px;
   display: flex;
   height: 74px;
-  background-color: #073042;
+  background-color: #fff;
   justify-content: space-between;
   align-items: center;
-  max-width: 1140px;
-  margin: auto;
 }
 
-.header__link {
+.header__logo {
   display: block;
   height: 38px;
   width: 38px;
   background-image: url(../../images/logo.svg);
   background-repeat: no-repeat;
   cursor: pointer;
+  margin-right: 64px;
 }
 
 .header__menu {
@@ -38,18 +36,73 @@
   cursor: pointer;
 }
 
-.header__accaunt {
+.header__account {
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
   height: 32px;
-  width: 76px;
+  padding: 0 12px;
+  color: #000;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
+  cursor: pointer;
+}
+
+.header__pic {
+  background-image: url(../../images/icon__COLOR_icon-main.svg);
+  padding-right: 6px;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.header_dark {
+  background-color: #073042;
+  padding: 0 70px;
+  /* width: 12px;
+  height: 14px; */
+}
+
+.header__menu_login {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  padding: 0;
+}
+
+.header__account {
+  background-color: #fff;
+}
+
+.header__link {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38px;
+  color: #000000;
+  text-decoration: none;
+  margin-right: 16px;
+}
+
+.header__link:last-of-type {
+  margin-right: 0;
+}
+
+.header__link_activ {
+  font-weight: 500;
+}
+
+.header__signin {
   background: #2be080;
   border-radius: 3px;
   border: none;
-  padding: 0;
-  color: #000;
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
-  cursor: pointer;
+  color: #000000;
+  padding: 8px 20px;
 }
