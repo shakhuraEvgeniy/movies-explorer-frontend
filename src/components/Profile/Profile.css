@@ -55,6 +55,11 @@
   line-height: 13px;
   text-align: right;
   color: #000000;
+  width: 200px;
+}
+
+.profile__input:disabled {
+  background-color: #fff;
 }
 
 .profile__input-error {
@@ -95,4 +100,30 @@
   border: none;
   background-color: #fff;
   cursor: pointer;
+}
+
+.button_disabled {
+  display: none;
+}
+
+.profile__submit {
+  background: #3456f3;
+  border-radius: 3px;
+  border: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  width: 396px;
+  height: 45px;
+  margin-top: 208px;
+  cursor: pointer;
+}
+
+.profile__submit:hover {
+  background-color: #3456F3;
+  opacity: 0.8;
 }
