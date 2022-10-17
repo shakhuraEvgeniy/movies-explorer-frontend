@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Title from "../Title/Title";
 import "./AboutMe.css";
 import PhotoPath from "../../images/Photo.jpeg";
@@ -23,12 +22,14 @@ const AboutMe = ({ title }) => {
           переехал жить в Москву. После прохождения курса по web-разработке
           планирую перейти в разработчики
         </p>
-        <Link
+        <a
           className="about-me__link"
-          to="https://github.com/shakhuraEvgeniy"
+          href="https://github.com/shakhuraEvgeniy"
+          target="_blank"
+          rel="noreferrer"
         >
           Github
-        </Link>
+        </a>
       </div>
       <Portfolio />
       <Footer />

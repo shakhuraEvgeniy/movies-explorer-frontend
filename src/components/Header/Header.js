@@ -1,5 +1,5 @@
 import React from "react";
-import {  NavLink } from "react-router-dom";
+import {  Link, NavLink } from "react-router-dom";
 import "./Header.css";
 
 const Header = ({ loggedIn }) => {
@@ -27,10 +27,10 @@ const Header = ({ loggedIn }) => {
       {loggedIn ? (
         <ul className="header__menu">
           <li>
-            <button className="header__signup">Регистрация</button>
+            <Link className="header__signup" to="/signup">Регистрация</Link>
           </li>
           <li>
-            <button className="header__signin">Войти</button>
+            <Link className="header__signin" to="/signin">Войти</Link>
           </li>
         </ul>
       ) : (
