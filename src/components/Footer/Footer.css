@@ -1,5 +1,6 @@
 .footer {
-  margin: 158px 0 20px;
+  max-width: 1280px;
+  margin: 158px 70px 20px;
 }
 
 .footer__title {
@@ -39,8 +40,20 @@
   line-height: 16px;
   color: #000000;
   margin-right: 20px;
+  opacity: 1;
+  transition: opacity .5s ease;
 }
 
 .footer__link:last-of-type{
   margin-right: 0;
+}
+
+.footer__link:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    margin: 149px 30px 20px;
+  }
 }

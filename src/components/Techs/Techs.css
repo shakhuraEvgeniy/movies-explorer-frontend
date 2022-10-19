@@ -61,3 +61,28 @@
 .techs__items:first-of-type {
   margin-left: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .techs {
+    height: 476px;
+    padding: 88px 50px 0;
+  }
+  .techs__title {
+    margin: 80px auto 0;
+  }
+  .techs__subtitle {
+    margin: 20px 0 0;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .techs__table {
+    margin: 83px 0 0;
+  }
+  .techs__items {
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 15px;
+    width: 84px;
+    padding: 21px 0 20px;
+  }
+}

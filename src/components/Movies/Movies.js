@@ -3,8 +3,9 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
-import "./Movies.css"
+import "./Movies.css";
 
 const Movies = () => {
   return (
@@ -12,6 +13,7 @@ const Movies = () => {
       <Header loggedIn={false} />
       <SearchForm />
       <FilterCheckbox />
+      <Preloader isLoading={false}/>
       <MoviesCardList />
       <button className="movies__button">Ещё</button>
       <Footer />

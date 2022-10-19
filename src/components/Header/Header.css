@@ -61,8 +61,6 @@
 .header_dark {
   background-color: #073042;
   padding: 0 70px;
-  /* width: 12px;
-  height: 14px; */
 }
 
 .header__menu_login {
@@ -107,4 +105,10 @@
   color: #000000;
   padding: 8px 20px;
   text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .header_dark {
+    padding: 0 30px;
+  }
 }

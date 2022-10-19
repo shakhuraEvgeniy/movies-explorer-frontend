@@ -9,14 +9,14 @@
 .table {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
-  margin: 70px 0 0;
+  margin: 70px 0;
   padding: 0;
 }
 
 .table__cell {
-  width: 550px;
+  max-width: 550px;
 }
 
 .table__heading {
@@ -46,7 +46,7 @@
   list-style: none;
   display: flex;
   padding: 0;
-  margin-top: 96px;
+  margin-top: 25px;
 }
 
 .about-project__cell {
@@ -71,7 +71,7 @@
   text-align: center;
   color: #000000;
   margin: 0;
-  padding: 9px 0;
+  padding: 10px 0;
 }
 
 .about-project__text {
@@ -91,4 +91,38 @@
 
 .about-project__heading_color_grey {
   background-color: #f2f2f2;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project {
+    padding: 0 50px;
+    margin-top: 90px;
+  }
+
+  .table {
+    margin: 70px 0 45px;
+  }
+
+  .table__cell {
+    max-width: 319px;
+  }
+
+  .table__text {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .about-project__scale {
+    margin-top: 36px;
+  }
+
+  .about-project__cell:last-of-type {
+    flex-grow: 6;
+  }
+
+  .about-project__text {
+    margin-top: 13px;
+  }
+
 }

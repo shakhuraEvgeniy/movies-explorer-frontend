@@ -7,7 +7,7 @@
 
 .about-me__information {
   display: grid;
-  grid-template-columns: 600px 270px;
+  grid-template-columns: 1fr max-content;
   grid-template-rows: 58px 20px 178px 17px;
   gap: 18px 30px;
   margin-top: 66px;
@@ -39,7 +39,7 @@
 }
 
 .about-me__text {
-  width: 600px;
+  max-width: 600px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -72,4 +72,33 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: -1;
+}
+
+@media screen and (max-width: 786px) {
+  .about-me {
+    padding: 90px 50px 0;
+  }
+  .about-me__image {
+    width: 255px;
+    min-height: 307px;
+  }
+  .about-me__name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .about-me__profession {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .about-me__information {
+    grid-template-rows: 44px 17px 192px 17px;
+    gap: 12px 30px;
+    margin-top: 66px;
+    justify-content: space-between;
+  }
+  .about-me__text {
+    font-size: 12px;
+    line-height: 1.5;
+
+  }
 }

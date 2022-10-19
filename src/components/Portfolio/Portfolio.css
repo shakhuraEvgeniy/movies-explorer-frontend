@@ -58,3 +58,13 @@
   letter-spacing: -0.04em;
   color: #000000;
 }
+
+@media screen and (max-width: 768px) {
+  .portfolio {
+    margin: 92px 0 0px;
+  }
+  .portfolio__text {
+    font-size: 28px;
+    line-height: 1.79;
+  }
+}

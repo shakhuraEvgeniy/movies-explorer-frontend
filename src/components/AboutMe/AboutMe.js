@@ -3,7 +3,6 @@ import Title from "../Title/Title";
 import "./AboutMe.css";
 import PhotoPath from "../../images/Photo.jpeg";
 import Portfolio from "../Portfolio/Portfolio";
-import Footer from "../Footer/Footer";
 
 const AboutMe = ({ title }) => {
   return (
@@ -32,7 +31,6 @@ const AboutMe = ({ title }) => {
         </a>
       </div>
       <Portfolio />
-      <Footer />
     </div>
   );
 };

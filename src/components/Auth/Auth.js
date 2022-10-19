@@ -4,7 +4,7 @@ import "./Auth.css";
 function Auth({ name, title, buttonText, onSubmit, children }) {
   return (
     <div className={`auth auth_type_${name}`}>
-      <div className="auth__logo"></div>
+      <Link className="auth__logo" to="/"></Link>
       <h2 className="auth__title">{title}</h2>
       <form
         className="auth__form"
