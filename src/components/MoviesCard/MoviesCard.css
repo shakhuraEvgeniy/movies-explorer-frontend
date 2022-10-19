@@ -40,7 +40,7 @@
 .card__like {
   background-image: url(../../images/like.png);
   background-color: transparent;
-border: none;
+  border: none;
   object-fit: cover;
   width: 30px;
   height: 30px;
@@ -56,4 +56,10 @@ border: none;
   object-fit: cover;
   width: 100%;
   height: 203px;
+}
+
+@media screen and (max-width: 768px) {
+  .card__image {
+    height: 190px;
+  }
 }

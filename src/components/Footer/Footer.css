@@ -41,10 +41,10 @@
   color: #000000;
   margin-right: 20px;
   opacity: 1;
-  transition: opacity .5s ease;
+  transition: opacity 0.5s ease;
 }
 
-.footer__link:last-of-type{
+.footer__link:last-of-type {
   margin-right: 0;
 }
 

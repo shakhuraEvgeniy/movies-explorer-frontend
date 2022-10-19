@@ -1,8 +1,8 @@
 import React from "react";
 import "./MoviesCard.css";
 
-const MoviesCard = ({card}) => {
-  const {image, title, duration} = card;
+const MoviesCard = ({ card }) => {
+  const { image, title, duration } = card;
   return (
     <article className="card">
       <div className="card__group">
@@ -10,11 +10,7 @@ const MoviesCard = ({card}) => {
         <span className="card__duration">{duration}</span>
         <button className="card__like" type="button"></button>
       </div>
-      <img
-        src={image}
-        alt=""
-        className="card__image"
-      />
+      <img src={image} alt="" className="card__image" />
     </article>
   );
 };

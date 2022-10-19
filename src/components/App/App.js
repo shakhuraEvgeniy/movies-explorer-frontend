@@ -7,6 +7,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import Footer from "../Footer/Footer";
 
 function App() {
   return (
@@ -17,9 +18,11 @@ function App() {
         </Route>
         <Route path="/movies">
           <Movies />
+          <Footer />
         </Route>
         <Route path="/saved-movies">
           <SavedMovies />
+          <Footer />
         </Route>
         <Route path="/profile">
           <Profile />
