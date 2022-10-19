@@ -1,47 +1,48 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import "./NavTab.css";
 
 const NavTab = ({ loggedIn }) => {
   return (
     <>
       {loggedIn || (
-        <nav className="header__menu-movies">
+        <nav>
           <NavLink
             to="/movies"
-            className="header__link"
-            activeClassName="header__link_activ"
+            className="menu__movies"
+            activeClassName="menu__movies_activ"
           >
             Фильмы
           </NavLink>
           <NavLink
             to="/saved-movies"
-            className="header__link"
-            activeClassName="header__link_activ"
+            className="menu__movies"
+            activeClassName="menu__movies_activ"
           >
             Сохранённые фильмы
           </NavLink>
         </nav>
       )}
       {loggedIn ? (
-        <ul className="header__menu">
+        <ul className="menu__profile">
           <li>
-            <Link className="header__signup" to="/signup">
+            <Link className="menu__signup" to="/signup">
               Регистрация
             </Link>
           </li>
           <li>
-            <Link className="header__signin" to="/signin">
+            <Link className="menu__signin" to="/signin">
               Войти
             </Link>
           </li>
         </ul>
       ) : (
-        <ul className="header__menu_login">
+        <ul className="menu__profile_login">
           <li>
-            <button className="header__account">
-              <svg className="header__pic" width="12" height="14"></svg>
+            <Link className="menu__account" to="/profile">
+              <svg className="menu__pic" width="12" height="14"></svg>
               Аккаунт
-            </button>
+            </Link>
           </li>
         </ul>
       )}

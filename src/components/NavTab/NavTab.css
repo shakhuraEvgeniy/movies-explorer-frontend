@@ -1,0 +1,81 @@
+.menu__profile {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+}
+
+.menu__signup {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  margin-right: 30px;
+  padding: 0;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  cursor: pointer;
+  text-decoration: none;
+}
+.menu__account {
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+  min-height: 32px;
+  padding: 5px 12px;
+  color: #000;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu__pic {
+  background-image: url(../../images/icon__COLOR_icon-main.svg);
+  padding-right: 6px;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.menu__movies {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38px;
+  color: #000000;
+  text-decoration: none;
+  margin-right: 16px;
+}
+
+.menu__movies:last-of-type {
+  margin-right: 0;
+}
+
+.menu__movies_activ {
+  font-weight: 500;
+}
+
+.menu__signin {
+  background: #2be080;
+  border-radius: 3px;
+  border: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #000000;
+  padding: 8px 20px;
+  text-decoration: none;
+}
+
+.menu__profile_login {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  padding: 0;
+}

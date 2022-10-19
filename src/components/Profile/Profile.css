@@ -124,6 +124,21 @@
 }
 
 .profile__submit:hover {
-  background-color: #3456F3;
+  background-color: #3456f3;
   opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    padding: 0 30px;
+  }
+  .profile__title {
+    margin-top: 236px;
+  }
+  .profile__form {
+    margin-top: 77px;
+  }
+  .profile__edit {
+    margin-top: 195px;
+  }
 }

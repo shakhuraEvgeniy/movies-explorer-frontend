@@ -34,3 +34,9 @@
   text-align: center;
   color: #3456f3;
 }
+
+@media screen and (max-width: 768px) {
+  .notFound__title {
+    margin-top: 408px;
+  }
+}

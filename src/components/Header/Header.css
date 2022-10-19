@@ -16,95 +16,9 @@
   margin-right: 64px;
 }
 
-.header__menu {
-  display: flex;
-  list-style-type: none;
-  align-items: center;
-}
-
-.header__signup {
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  margin-right: 30px;
-  padding: 0;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.header__account {
-  border: 2px solid rgba(170, 170, 170, 0.2);
-  border-radius: 50px;
-  height: 32px;
-  padding: 0 12px;
-  color: #000;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.14;
-  cursor: pointer;
-}
-
-.header__pic {
-  background-image: url(../../images/icon__COLOR_icon-main.svg);
-  padding-right: 6px;
-  background-repeat: no-repeat;
-  vertical-align: middle;
-}
-
 .header_dark {
   background-color: #073042;
   padding: 0 70px;
-}
-
-.header__menu_login {
-  display: flex;
-  list-style-type: none;
-  align-items: center;
-  padding: 0;
-}
-
-.header__account {
-  background-color: #fff;
-}
-
-.header__link {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 1.38px;
-  color: #000000;
-  text-decoration: none;
-  margin-right: 16px;
-}
-
-.header__link:last-of-type {
-  margin-right: 0;
-}
-
-.header__link_activ {
-  font-weight: 500;
-}
-
-.header__signin {
-  background: #2be080;
-  border-radius: 3px;
-  border: none;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-  color: #000000;
-  padding: 8px 20px;
-  text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {
