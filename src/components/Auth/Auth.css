@@ -43,7 +43,7 @@
   line-height: 17px;
   text-align: center;
   color: #ffffff;
-  width: 396px;
+  max-width: 396px;
   height: 45px;
   margin-top: 77px;
   cursor: pointer;
@@ -61,7 +61,7 @@
 }
 
 .auth__link-login {
-  color: #3456F3;
+  color: #3456f3;
   text-decoration: none;
 }
 
@@ -96,9 +96,7 @@
   color: #000000;
 }
 
-
 .auth__input-error {
-  width: 396px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -113,5 +111,31 @@
   .auth {
     margin-top: 232px;
   }
+}
 
+@media screen and (max-width: 480px) {
+  .auth {
+    width: 260px;
+    margin-top: 56px;
+  }
+  .auth__logo {
+    margin: auto;
+  }
+  .auth__title {
+    margin-top: 50px;
+    text-align: center;
+  }
+  .auth__form {
+    margin-top: 73px;
+    min-height: 475px;
+  }
+  .auth__submit {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .auth__caption {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 14px;
+  }
 }

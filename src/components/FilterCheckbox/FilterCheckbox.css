@@ -50,3 +50,10 @@
   line-height: 1.38px;
   color: #000000;
 }
+
+@media screen and (max-width: 480px) {
+  .checkbox__title {
+    font-size: 11px;
+    line-height: 1.64;
+  }
+}

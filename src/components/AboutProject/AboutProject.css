@@ -124,5 +124,47 @@
   .about-project__text {
     margin-top: 13px;
   }
+}
 
+@media screen and (max-width: 480px) {
+  .about-project {
+    padding: 0 18px;
+    margin-top: 70px;
+    padding-bottom: 28px;
+  }
+  .table {
+    flex-wrap: wrap;
+    margin-top: 60px;
+    margin-bottom: 10px;
+  }
+  .table__heading {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+  }
+  .table__text {
+    margin-top: 15px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .table__cell {
+    margin-bottom: 48px;
+  }
+  .table__cell:last-of-type {
+    margin-bottom: 0;
+  }
+  .about-project__cell:last-of-type {
+    flex-grow: 3;
+  }
+  .about-project__heading {
+    font-size: 11px;
+    line-height: 13px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .about-project__text {
+    font-size: 11px;
+    line-height: 13px;
+    margin-top: 10px;
+  }
 }

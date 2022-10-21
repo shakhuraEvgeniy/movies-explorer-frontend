@@ -142,3 +142,21 @@
     margin-top: 195px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .profile__title {
+    margin-top: 70px;
+  }
+  .profile__form {
+    margin-top: 62px;
+  }
+  .profile__edit {
+    margin-top: 362px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .profile__logout {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

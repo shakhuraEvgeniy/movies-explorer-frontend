@@ -79,3 +79,18 @@
   align-items: center;
   padding: 0;
 }
+
+@media screen and (max-width: 480px) {
+  .menu__signup {
+    margin-right: 14px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+  .menu__signin {
+
+    font-size: 10px;
+    line-height: 16px;
+
+    padding: 7px 12px;
+  }
+}

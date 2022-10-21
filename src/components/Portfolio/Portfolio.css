@@ -68,3 +68,28 @@
     line-height: 1.79;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .portfolio {
+    margin-top: 70px;
+  }
+  .portfolio__text {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.04em;
+  }
+  .portfolio__pik {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .portfolio__list{
+    margin-top: 41px;
+  }
+  .portfolio__item {
+    margin-top: 30px;
+  }
+}

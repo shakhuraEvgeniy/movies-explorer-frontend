@@ -26,3 +26,13 @@
     padding: 0 30px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .header__logo {
+    /* margin-left: -15px; */
+    margin-right: 0;
+  }
+  .header_dark {
+    padding: 0 14px;
+  }
+}

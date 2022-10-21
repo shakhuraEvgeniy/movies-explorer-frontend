@@ -11,3 +11,11 @@
   text-align: left;
   border-bottom: 1px solid #000000;
 }
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+}

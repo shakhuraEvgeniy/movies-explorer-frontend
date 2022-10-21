@@ -14,3 +14,13 @@
     gap: 36px 30px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .movies-card-list {
+    margin-top: 35px;
+    gap: 16px 30px;
+    padding-top: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+}

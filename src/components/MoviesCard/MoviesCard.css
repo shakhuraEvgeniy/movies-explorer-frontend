@@ -58,8 +58,14 @@
   height: 203px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .card__image {
     height: 190px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card__image {
+    height: 168px;
   }
 }

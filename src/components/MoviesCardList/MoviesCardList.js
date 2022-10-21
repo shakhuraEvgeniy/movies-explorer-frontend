@@ -4,46 +4,6 @@ import PhotoPath from "../../images/Photo.jpeg";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 const cards = [
-  {
-    image: PhotoPath,
-    title: "33 слова о дизайне",
-    duration: "1ч 47м",
-  },
-  {
-    image: PhotoPath,
-    title: "33 слова о дизайне",
-    duration: "1ч 47м",
-  },
-  {
-    image: PhotoPath,
-    title: "33 слова о дизайне",
-    duration: "1ч 47м",
-  },
-  {
-    image: PhotoPath,
-    title: "33 слова о дизайне",
-    duration: "1ч 47м",
-  },
-  {
-    image: PhotoPath,
-    title: "33 слова о дизайне",
-    duration: "1ч 47м",
-  },
-  {
-    image: PhotoPath,
-    title: "33 слова о дизайне",
-    duration: "1ч 47м",
-  },
-  {
-    image: PhotoPath,
-    title: "33 слова о дизайне",
-    duration: "1ч 47м",
-  },
-  {
-    image: PhotoPath,
-    title: "33 слова о дизайне",
-    duration: "1ч 47м",
-  },
   // {
   //   image: PhotoPath,
   //   title: "33 слова о дизайне",
@@ -64,6 +24,46 @@ const cards = [
   //   title: "33 слова о дизайне",
   //   duration: "1ч 47м",
   // },
+  // {
+  //   image: PhotoPath,
+  //   title: "33 слова о дизайне",
+  //   duration: "1ч 47м",
+  // },
+  // {
+  //   image: PhotoPath,
+  //   title: "33 слова о дизайне",
+  //   duration: "1ч 47м",
+  // },
+  // {
+  //   image: PhotoPath,
+  //   title: "33 слова о дизайне",
+  //   duration: "1ч 47м",
+  // },
+  // {
+  //   image: PhotoPath,
+  //   title: "33 слова о дизайне",
+  //   duration: "1ч 47м",
+  // },
+  // {
+  //   image: PhotoPath,
+  //   title: "33 слова о дизайне",
+  //   duration: "1ч 47м",
+  // },
+  // {
+  //   image: PhotoPath,
+  //   title: "33 слова о дизайне",
+  //   duration: "1ч 47м",
+  // },
+  {
+    image: PhotoPath,
+    title: "33 слова о дизайне",
+    duration: "1ч 47м",
+  },
+  {
+    image: PhotoPath,
+    title: "33 слова о дизайне",
+    duration: "1ч 47м",
+  },
 ];
 
 const MoviesCardList = () => {
