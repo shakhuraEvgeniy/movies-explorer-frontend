@@ -1,46 +1,14 @@
-.menu__profile {
+.nav-tab {
+  width: 59%;
+}
+
+.nav-tab__menu {
   display: flex;
-  list-style-type: none;
+  justify-content: space-between;
   align-items: center;
 }
 
-.menu__signup {
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  margin-right: 30px;
-  padding: 0;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-  cursor: pointer;
-  text-decoration: none;
-}
-.menu__account {
-  border: 2px solid rgba(170, 170, 170, 0.2);
-  border-radius: 50px;
-  min-height: 32px;
-  padding: 5px 12px;
-  color: #000;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.14;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.menu__pic {
-  background-image: url(../../images/icon__COLOR_icon-main.svg);
-  padding-right: 6px;
-  background-repeat: no-repeat;
-  vertical-align: middle;
-}
-
-.menu__movies {
+.nav-tab__movies {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -51,15 +19,57 @@
   margin-right: 16px;
 }
 
-.menu__movies:last-of-type {
+.nav-tab__movies:last-of-type {
   margin-right: 0;
 }
 
-.menu__movies_activ {
+.nav-tab__movies_activ {
   font-weight: 500;
 }
 
-.menu__signin {
+.nav-tab__account {
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+  min-height: 18px;
+  padding: 5px 12px;
+  color: #000;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 74px;
+}
+
+.nav-tab__pic {
+  background-image: url(../../images/icon__COLOR_icon-main.svg);
+  padding-right: 6px;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.nav-tab__burger {
+  display: none;
+}
+
+.nav-tab__blur {
+  display: none;
+}
+
+.nav-tab__main-page {
+  display: none;
+}
+
+.nav-tab__profile {
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-tab__signin {
   background: #2be080;
   border-radius: 3px;
   border: none;
@@ -73,21 +83,185 @@
   text-decoration: none;
 }
 
-.menu__profile_login {
-  display: flex;
-  list-style-type: none;
-  align-items: center;
+.nav-tab__signup {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  margin-right: 30px;
   padding: 0;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-tab__blur.activ {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.3;
+    z-index: 2;
+  }
+
+  .nav-tab {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-tab__movies-block {
+    display: flex;
+    flex-direction: column;
+    margin-top: 160px;
+  }
+
+  .nav-tab__burger {
+    position: absolute;
+    top: 26px;
+    right: 38px;
+    display: block;
+    width: 28px;
+    height: 23px;
+    z-index: 3;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+  }
+
+  .nav-tab__burger::before,
+  .nav-tab__burger::after {
+    content: "";
+    background-color: #000;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    left: 0;
+    transition: all 0.3s ease 0s;
+  }
+
+  .nav-tab__burger::before {
+    top: 0;
+  }
+  .nav-tab__burger::after {
+    bottom: 0;
+  }
+  .nav-tab__burger span {
+    content: "";
+    background-color: #000;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    left: 0;
+    top: 10px;
+    transition: all 0.3s ease 0s;
+  }
+  .nav-tab__menu {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    top: 0;
+    right: -170%;
+    width: 520px;
+    height: 100%;
+    background-color: #fff;
+    z-index: 2;
+    transition: all 0.3s ease 0s;
+  }
+
+  .nav-tab__menu.activ {
+    right: 0;
+  }
+
+  .nav-tab__movies {
+    display: block;
+  }
+  .nav-tab__movies {
+    display: block;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 28px;
+  }
+  .nav-tab__movies_activ {
+    text-decoration: underline;
+  }
+  .nav-tab__account {
+    margin-bottom: 90px;
+  }
+  .nav-tab__main-page {
+    display: block;
+  }
+
+  .nav-tab__burger.activ {
+    top: 26px;
+    right: 21px;
+  }
+
+  .nav-tab__burger.activ::before {
+    transform: rotate(45deg);
+    top: 10px;
+    width: 22px;
+  }
+  .nav-tab__burger.activ::after {
+    transform: rotate(-45deg);
+    bottom: 10px;
+    width: 22px;
+  }
+  .nav-tab__burger.activ span {
+    transform: scale(0);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .nav-tab__menu {
+    width: 100%;
+  }
+  .nav-tab__movies-block {
+    margin-top: 145px;
+  }
+
+  .nav-tab__movies {
+    margin-bottom: 24px;
+  }
+  .nav-tab__burger {
+    top: 27px;
+    height: 21px;
+    width: 22px;
+    right: 23px;
+  }
+
+  .nav-tab__burger span {
+    top: 9px;
+  }
+
+  .nav-tab__burger.activ {
+    top: 17px;
+    right: 12px;
+  }
+  .nav-tab__account {
+    margin-bottom: 82px;
+  }
+  .nav-tab__burger.activ::before {
+    top: 9px;
+  }
+  .nav-tab__burger.activ::after {
+    bottom: 9px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-  .menu__signup {
+  .nav-tab__signup {
     margin-right: 14px;
     font-size: 10px;
     line-height: 16px;
   }
-  .menu__signin {
-
+  .nav-tab__signin {
     font-size: 10px;
     line-height: 16px;
 

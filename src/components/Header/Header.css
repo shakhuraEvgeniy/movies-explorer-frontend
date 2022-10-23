@@ -29,7 +29,6 @@
 
 @media screen and (max-width: 480px) {
   .header__logo {
-    /* margin-left: -15px; */
     margin-right: 0;
   }
   .header_dark {

@@ -44,16 +44,16 @@ const cards = [
   //   title: "33 слова о дизайне",
   //   duration: "1ч 47м",
   // },
-  // {
-  //   image: PhotoPath,
-  //   title: "33 слова о дизайне",
-  //   duration: "1ч 47м",
-  // },
-  // {
-  //   image: PhotoPath,
-  //   title: "33 слова о дизайне",
-  //   duration: "1ч 47м",
-  // },
+  {
+    image: PhotoPath,
+    title: "33 слова о дизайне",
+    duration: "1ч 47м",
+  },
+  {
+    image: PhotoPath,
+    title: "33 слова о дизайне",
+    duration: "1ч 47м",
+  },
   {
     image: PhotoPath,
     title: "33 слова о дизайне",
