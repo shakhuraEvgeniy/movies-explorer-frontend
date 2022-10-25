@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../Header/Header";
 import "./Profile.css";
 
 const Profile = ({ name = "Виталий", email = "pochta@yandex.ru" }) => {
@@ -10,8 +9,7 @@ const Profile = ({ name = "Виталий", email = "pochta@yandex.ru" }) => {
   };
 
   return (
-    <section className="profile">
-      <Header />
+    <main className="profile">
       <h2 className="profile__title">Привет, {name}!</h2>
       <form className="profile__form">
         <div className="profile__input-block">
@@ -48,7 +46,7 @@ const Profile = ({ name = "Виталий", email = "pochta@yandex.ru" }) => {
       <button className={`profile__logout ${edit && "button_disabled"}`}>
         Выйти из аккаунта
       </button>
-    </section>
+    </main>
   );
 };
 

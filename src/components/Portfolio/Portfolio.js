@@ -9,7 +9,7 @@ const Portfolio = () => {
         <li className="portfolio__item">
           <a
             className="portfolio__link"
-            href="/"
+            href="http://static-site.eshakhura.ru/"
             target="_blank"
             rel="noreferrer"
           >

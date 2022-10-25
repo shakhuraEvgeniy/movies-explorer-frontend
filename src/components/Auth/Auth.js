@@ -3,7 +3,7 @@ import "./Auth.css";
 
 function Auth({ name, title, buttonText, onSubmit, children }) {
   return (
-    <div className={`auth auth_type_${name}`}>
+    <main className={`auth auth_type_${name}`}>
       <Link className="auth__logo" to="/"></Link>
       <h2 className="auth__title">{title}</h2>
       <form
@@ -32,7 +32,7 @@ function Auth({ name, title, buttonText, onSubmit, children }) {
           </Link>
         </h3>
       )}
-    </div>
+    </main>
   );
 }
 

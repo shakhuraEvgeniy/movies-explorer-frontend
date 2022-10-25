@@ -4,7 +4,7 @@ import "./AboutProject.css";
 
 const AboutProject = () => {
   return (
-    <div className="about-project">
+    <section className="about-project">
       <Title title={"О проекте"} />
       <ul className="table">
         <li className="table__cell">
@@ -36,7 +36,7 @@ const AboutProject = () => {
           <p className="about-project__text">Front-end</p>
         </li>
       </ul>
-    </div>
+    </section>
   );
 };
 

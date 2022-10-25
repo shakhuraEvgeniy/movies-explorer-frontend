@@ -4,6 +4,7 @@
   background-color: #fff;
   justify-content: space-between;
   align-items: center;
+  padding: 0 70px;
 }
 
 .header__logo {
@@ -18,7 +19,6 @@
 
 .header_dark {
   background-color: #073042;
-  padding: 0 70px;
 }
 
 @media screen and (max-width: 768px) {

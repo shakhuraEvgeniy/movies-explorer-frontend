@@ -4,7 +4,6 @@
 
 .notFound__title {
   margin: 246px auto 0;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 140px;
@@ -15,7 +14,6 @@
 
 .notFound__subtitle {
   margin: 5px auto 184px;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -26,7 +24,6 @@
 
 .notFound__link {
   text-decoration: none;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

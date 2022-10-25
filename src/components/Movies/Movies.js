@@ -1,6 +1,5 @@
 import React from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
@@ -8,14 +7,13 @@ import "./Movies.css";
 
 const Movies = () => {
   return (
-    <section className="movies">
-      <Header loggedIn={false} />
+    <main className="movies">
       <SearchForm />
       <FilterCheckbox />
       <Preloader isLoading={false} />
-      <MoviesCardList />
+      <MoviesCardList saved={false} />
       <button className="movies__button">Ещё</button>
-    </section>
+    </main>
   );
 };
 

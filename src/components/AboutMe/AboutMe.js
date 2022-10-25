@@ -6,7 +6,7 @@ import Portfolio from "../Portfolio/Portfolio";
 
 const AboutMe = ({ title }) => {
   return (
-    <div className="about-me">
+    <section className="about-me">
       <Title title={"Студент"} />
       <div className="about-me__information">
         <h2 className="about-me__name">Евгений</h2>
@@ -31,7 +31,7 @@ const AboutMe = ({ title }) => {
         </a>
       </div>
       <Portfolio />
-    </div>
+    </section>
   );
 };
 

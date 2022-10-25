@@ -1,9 +1,8 @@
 .portfolio {
-  margin: 100px 0 13px;
+  margin: 100px 0 24px;
 }
 
 .portfolio__title {
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -39,7 +38,6 @@
 
 .portfolio__text {
   margin: 0;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
@@ -50,7 +48,6 @@
 
 .portfolio__pik {
   margin: 0;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 30px;

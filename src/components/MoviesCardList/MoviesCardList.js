@@ -48,29 +48,33 @@ const cards = [
     image: PhotoPath,
     title: "33 слова о дизайне",
     duration: "1ч 47м",
+    liked: true,
   },
   {
     image: PhotoPath,
     title: "33 слова о дизайне",
     duration: "1ч 47м",
+    liked: true,
   },
   {
     image: PhotoPath,
     title: "33 слова о дизайне",
     duration: "1ч 47м",
+    liked: false,
   },
   {
     image: PhotoPath,
     title: "33 слова о дизайне",
     duration: "1ч 47м",
+    liked: false,
   },
 ];
 
-const MoviesCardList = () => {
+const MoviesCardList = ({saved}) => {
   return (
     <section className="movies-card-list">
       {cards.map((card) => (
-        <MoviesCard card={card} />
+        <MoviesCard card={card} saved={saved} />
       ))}
     </section>
   );

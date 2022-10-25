@@ -4,7 +4,7 @@ import "./Techs.css";
 
 const Techs = ({ title }) => {
   return (
-    <div className="techs">
+    <section className="techs">
       <Title title={"Технологии"} />
       <h2 className="techs__title">7 технологий</h2>
       <p className="techs__subtitle">
@@ -20,7 +20,7 @@ const Techs = ({ title }) => {
         <li className="techs__items">Express.js</li>
         <li className="techs__items">mongoDB</li>
       </ul>
-    </div>
+    </section>
   );
 };
 

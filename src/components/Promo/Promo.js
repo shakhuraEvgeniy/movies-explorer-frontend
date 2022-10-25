@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Promo = () => {
   return (
-    <div className="promo">
+    <section className="promo">
       <img
         className="promo__image"
         src={PromoLogoPath}
@@ -19,7 +19,7 @@ const Promo = () => {
       </h2>
 
       <Link className="promo__button" to="/">Узнать больше</Link>
-    </div>
+    </section>
   );
 };
 
