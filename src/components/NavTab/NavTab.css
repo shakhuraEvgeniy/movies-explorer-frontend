@@ -19,6 +19,10 @@
   margin-right: 16px;
 }
 
+.nav-tab__movies_light {
+  color: #fff;
+}
+
 .nav-tab__movies:last-of-type {
   margin-right: 0;
 }
@@ -43,6 +47,11 @@
   display: flex;
   align-items: center;
   width: 74px;
+}
+
+.nav-tab__account_light {
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .nav-tab__pic {
@@ -145,6 +154,11 @@
     transition: all 0.3s ease 0s;
   }
 
+  .nav-tab__burger_light::before,
+  .nav-tab__burger_light::after {
+    background-color: #fff;
+  }
+
   .nav-tab__burger::before {
     top: 0;
   }
@@ -161,6 +175,11 @@
     top: 10px;
     transition: all 0.3s ease 0s;
   }
+
+  .nav-tab__burger_light span {
+    background-color: #fff;
+  }
+
   .nav-tab__menu {
     display: flex;
     position: fixed;
@@ -180,14 +199,15 @@
 
   .nav-tab__movies {
     display: block;
-  }
-  .nav-tab__movies {
-    display: block;
     font-weight: 500;
     font-size: 18px;
     line-height: 22px;
     margin: 0 0 28px;
   }
+
+  /* .nav-tab__movies_light {
+    color: #000;
+  } */
   .nav-tab__movies_activ {
     text-decoration: underline;
   }

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./NavTab.css";
 
-const NavTab = ({ loggedIn }) => {
+const NavTab = ({ loggedIn, dark }) => {
   const [activBurger, setActivBurger] = useState(false);
   const hendleBurger = () => {
     setActivBurger(!activBurger);
@@ -11,23 +11,10 @@ const NavTab = ({ loggedIn }) => {
   return (
     <>
       {loggedIn ? (
-        <ul className="nav-tab__profile">
-          <li>
-            <Link className="nav-tab__signup" to="/signup">
-              Регистрация
-            </Link>
-          </li>
-          <li>
-            <Link className="nav-tab__signin" to="/signin">
-              Войти
-            </Link>
-          </li>
-        </ul>
-      ) : (
         <section className="nav-tab">
           <div className={`nav-tab__blur ${activBurger && "activ"}`}> </div>
           <div
-            className={`nav-tab__burger ${activBurger && "activ"}`}
+            className={`nav-tab__burger ${activBurger && "activ"} ${(dark && !activBurger) && "nav-tab__burger_light"}`}
             onClick={hendleBurger}
           >
             <span></span>
@@ -44,25 +31,38 @@ const NavTab = ({ loggedIn }) => {
               </NavLink>
               <NavLink
                 to="/movies"
-                className="nav-tab__movies"
+                className={`nav-tab__movies ${(dark && !activBurger) && "nav-tab__movies_light" }`}
                 activeClassName="nav-tab__movies_activ"
               >
                 Фильмы
               </NavLink>
               <NavLink
                 to="/saved-movies"
-                className="nav-tab__movies"
+                className={`nav-tab__movies ${(dark && !activBurger) && "nav-tab__movies_light"}`}
                 activeClassName="nav-tab__movies_activ"
               >
                 Сохранённые фильмы
               </NavLink>
             </div>
-            <Link className="nav-tab__account" to="/profile">
+            <Link className={`nav-tab__account ${(dark && !activBurger) && "nav-tab__account_light"}`} to="/profile">
               <svg className="nav-tab__pic" width="12" height="14"></svg>
               Аккаунт
             </Link>
           </nav>
         </section>
+      ) : (
+        <ul className="nav-tab__profile">
+          <li>
+            <Link className="nav-tab__signup" to="/signup">
+              Регистрация
+            </Link>
+          </li>
+          <li>
+            <Link className="nav-tab__signin" to="/signin">
+              Войти
+            </Link>
+          </li>
+        </ul>
       )}
     </>
   );
