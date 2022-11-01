@@ -1,16 +1,19 @@
 import "./SearchForm.css";
 
-const SearchForm = () => {
+const SearchForm = ({ onSubmit }) => {
   return (
     <div className="search">
-      <form className="search__form">
+      <form className="search__form" onSubmit={onSubmit}>
         <input
           className="search__input"
           type="text"
           placeholder="Фильм"
           required
         ></input>
-        <button className="search__button">Поиск</button>
+        <span className="search-input-error search__input-error"></span>
+        <button className="search__button" type="submit">
+          Поиск
+        </button>
       </form>
     </div>
   );

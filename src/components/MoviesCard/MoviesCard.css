@@ -22,6 +22,9 @@
   line-height: 18px;
   color: #000000;
   text-align: start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .card__duration {

@@ -5,6 +5,20 @@
 
 .search__form {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.search__input-error {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #ff004c;
+  text-align: left;
+  min-height: 13px;
 }
 
 .search__input {
@@ -44,9 +58,10 @@
   right: 10px;
   opacity: 1;
   transition: opacity 0.5s ease;
+  cursor: pointer;
 }
 
-.search__button:hover{
+.search__button:hover {
   opacity: 0.8;
 }
 
