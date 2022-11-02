@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Header from "../Header/Header";
+import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import "./Profile.css";
 
 const Profile = ({
@@ -7,11 +9,25 @@ const Profile = ({
   email = "pochta@yandex.ru",
   loggedIn,
 }) => {
+  const currentUser = useContext(CurrentUserContext);
   const [edit, setEdit] = useState(false);
 
   const onEditProfile = () => {
     setEdit(true);
   };
+
+  useEffect(() => {
+    setValues({
+      ...values,
+      emailInput: currentUser.email,
+      nameInput: currentUser.name,
+    });
+  }, [currentUser]);
+
+  const { values, handleChange, setValues } = useFormWithValidation({
+    emailInput: "",
+    nameInput: "",
+  });
 
   return (
     <>
@@ -22,8 +38,10 @@ const Profile = ({
           <div className="profile__input-block">
             <h3 className="profile__name">Имя</h3>
             <input
-              value={name}
               className="profile__input"
+              name="nameInput"
+              onChange={handleChange}
+              value={values.nameInput || ""}
               disabled={!edit}
             ></input>
             <span className="profile-name-input-error profile__input-error"></span>
@@ -31,7 +49,9 @@ const Profile = ({
           <div className="profile__input-block">
             <h3 className="profile__name">E-mail</h3>
             <input
-              value={email}
+              name="emailInput"
+              onChange={handleChange}
+              value={values.emailInput || ""}
               className="profile__input"
               disabled={!edit}
             ></input>

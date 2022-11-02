@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Auth.css";
 
-function Auth({ name, title, buttonText, onSubmit, children }) {
+function Auth({ name, title, buttonText, onSubmit, children, isValid }) {
   return (
     <main className={`auth auth_type_${name}`}>
       <Link className="auth__logo" to="/"></Link>
@@ -12,7 +12,7 @@ function Auth({ name, title, buttonText, onSubmit, children }) {
         onSubmit={onSubmit}
       >
         <div>{children}</div>
-        <button className="auth__submit" type="submit">
+        <button className={`auth__submit ${isValid || "auth__submit_disabled"}`} type="submit" disabled={!isValid}>
           {buttonText}
         </button>
       </form>
