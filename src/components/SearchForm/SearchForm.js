@@ -1,8 +1,6 @@
-import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import "./SearchForm.css";
 
-const SearchForm = ({ onSubmit }) => {
-  const { values, handleChange, errors, isValid } = useFormWithValidation({ searchInput: "" });
+const SearchForm = ({ onSubmit, onChange, values, errors, isValid }) => {
 
   return (
     <div className="search">
@@ -12,7 +10,7 @@ const SearchForm = ({ onSubmit }) => {
           name="searchInput"
           type="text"
           placeholder="Фильм"
-          onChange={handleChange}
+          onChange={onChange}
           value={values.searchInput || ""}
           required
         ></input>

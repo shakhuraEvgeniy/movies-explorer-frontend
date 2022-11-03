@@ -25,9 +25,12 @@
   .header_dark {
     padding: 0 30px;
   }
+  .header {
+    padding: 0 30px;
+  }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 520px) {
   .header__logo {
     margin-right: 0;
   }

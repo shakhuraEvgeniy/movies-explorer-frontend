@@ -9,11 +9,10 @@
 }
 
 .nav-tab__movies {
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
-  line-height: 1.38px;
+  line-height: 1.38;
   color: #000000;
   text-decoration: none;
   margin-right: 16px;

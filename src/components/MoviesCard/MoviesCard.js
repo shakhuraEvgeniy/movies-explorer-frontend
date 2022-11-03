@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./MoviesCard.css";
 
 const MoviesCard = ({ card, saved }) => {
-  const { image, nameRU, duration, liked } = card;
+  const { image, nameRU, duration, liked, trailerLink } = card;
   const [isLiked, setIsLiked] = useState(liked);
   const handleLiked = () => {
     saved || setIsLiked(!isLiked);
@@ -15,6 +15,11 @@ const MoviesCard = ({ card, saved }) => {
   const durationDisplay = `${durationFloor > 0 ? `${durationFloor}ч` : ""} ${
     durationResidue > 0 ? `${durationResidue}мин` : ""
   }`;
+
+  const handleImage = () => {
+    window.open(trailerLink, '_blank');
+  }
+
   return (
     <article className="card">
       <div className="card__group">
@@ -30,7 +35,7 @@ const MoviesCard = ({ card, saved }) => {
           onClick={handleLiked}
         ></button>
       </div>
-      <img src={imageUrl} alt={nameRU} className="card__image" />
+      <img src={imageUrl} alt={nameRU} className="card__image" onClick={handleImage}/>
     </article>
   );
 };
