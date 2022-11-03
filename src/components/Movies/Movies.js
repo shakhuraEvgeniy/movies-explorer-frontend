@@ -28,7 +28,6 @@ const Movies = ({ loggedIn }) => {
       ...values,
       searchInput: localStorage.getItem("searchInput"),
     });
-
     setIsShortFilm(Boolean(localStorage.getItem("filterCheckbox")));
   }, []);
 

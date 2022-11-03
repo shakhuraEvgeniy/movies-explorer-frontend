@@ -99,7 +99,7 @@
 }
 
 .profile__submit {
-  background: #3456f3;
+  background: #f8f8f8;
   border-radius: 3px;
   border: none;
   font-style: normal;
@@ -107,14 +107,20 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color: #ffffff;
+  color: #c2c2c2;
   width: 396px;
   height: 45px;
   margin-top: 208px;
+  cursor: auto;
+}
+
+.profile__submit.active {
+  background: #3456f3;
+  color: #ffffff;
   cursor: pointer;
 }
 
-.profile__submit:hover {
+.profile__submit.active:hover {
   background-color: #3456f3;
   opacity: 0.8;
 }

@@ -4,16 +4,18 @@ import Header from "../Header/Header";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import "./Profile.css";
 
-const Profile = ({
-  name = "Виталий",
-  email = "pochta@yandex.ru",
-  loggedIn,
-}) => {
+const Profile = ({ loggedIn, onLogout, onUpdate }) => {
   const currentUser = useContext(CurrentUserContext);
   const [edit, setEdit] = useState(false);
 
   const onEditProfile = () => {
     setEdit(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onUpdate(values.emailInput, values.nameInput);
+    setEdit(false)
   };
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const Profile = ({
     });
   }, [currentUser]);
 
-  const { values, handleChange, setValues } = useFormWithValidation({
+  const { values, handleChange, errors, isValid, setValues } = useFormWithValidation({
     emailInput: "",
     nameInput: "",
   });
@@ -33,8 +35,8 @@ const Profile = ({
     <>
       <Header loggedIn={loggedIn} />
       <main className="profile">
-        <h2 className="profile__title">Привет, {name}!</h2>
-        <form className="profile__form">
+        <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+        <form className="profile__form" onSubmit={handleSubmit}>
           <div className="profile__input-block">
             <h3 className="profile__name">Имя</h3>
             <input
@@ -42,24 +44,28 @@ const Profile = ({
               name="nameInput"
               onChange={handleChange}
               value={values.nameInput || ""}
+              required
               disabled={!edit}
             ></input>
-            <span className="profile-name-input-error profile__input-error"></span>
+            <span className="profile__input-error">{errors.nameInput}</span>
           </div>
           <div className="profile__input-block">
             <h3 className="profile__name">E-mail</h3>
             <input
+              type="email"
+              required
               name="emailInput"
               onChange={handleChange}
               value={values.emailInput || ""}
               className="profile__input"
               disabled={!edit}
             ></input>
-            <span className="profile-name-input-error profile__input-error"></span>
+            <span className="profile__input-error">{errors.emailInput}</span>
           </div>
           <button
             type="submit"
-            className={`profile__submit ${edit || "button_disabled"}`}
+            className={`profile__submit ${edit || "button_disabled"} ${isValid && "active"}`}
+            disabled={!isValid}
           >
             Сохранить
           </button>
@@ -70,7 +76,10 @@ const Profile = ({
         >
           Редактировать
         </button>
-        <button className={`profile__logout ${edit && "button_disabled"}`}>
+        <button
+          className={`profile__logout ${edit && "button_disabled"}`}
+          onClick={onLogout}
+        >
           Выйти из аккаунта
         </button>
       </main>
