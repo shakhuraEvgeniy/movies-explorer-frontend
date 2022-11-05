@@ -106,6 +106,15 @@ const App = () => {
 
   //--------------обработка фильмов--------------
 
+  const searchMovies = (allMovies, searchInpit, isShortFilm) => {
+    return allMovies.filter(
+      (item) =>
+        (item.nameRU.toLowerCase() || item.nameEN.toLowerCase()).includes(
+          searchInpit.toLowerCase()
+        ) && (isShortFilm ? item.duration <= 40 : item.duration > 0)
+    );
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -119,6 +128,7 @@ const App = () => {
             path="/movies"
             loggedIn={loggedIn}
             component={Movies}
+            onSearch={searchMovies}
           />
           <ProtectedRoute
             path="/saved-movies"
