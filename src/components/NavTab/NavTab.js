@@ -45,7 +45,7 @@ const NavTab = ({ loggedIn, dark }) => {
               </NavLink>
             </div>
             <Link className={`nav-tab__account ${(dark && !activBurger) && "nav-tab__account_light"}`} to="/profile">
-              <svg className="nav-tab__pic" width="12" height="14"></svg>
+              <div className={`nav-tab__pic ${dark && "nav-tab__pic_light"}`}></div>
               Аккаунт
             </Link>
           </nav>

@@ -2,17 +2,18 @@ import Auth from "../Auth/Auth";
 import "../Auth/Auth.css";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 
-const Register = ({onRegister}) => {
-  const { values, handleChange, isValid, errors } = useFormWithValidation({
-    emailInput: "",
-    passwordlInput: "",
-    nameInput: "",
-  });
+const Register = ({ onRegister }) => {
+  const { values, handleChange, isValid, errors, resetForm } =
+    useFormWithValidation({
+      emailInput: "",
+      passwordlInput: "",
+      nameInput: "",
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(values.emailInput, values.passwordlInput, values.nameInput)
-  }
+    onRegister(values.emailInput, values.passwordlInput, values.nameInput);
+  };
 
   return (
     <Auth

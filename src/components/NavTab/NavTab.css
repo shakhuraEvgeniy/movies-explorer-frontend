@@ -49,15 +49,21 @@
 }
 
 .nav-tab__account_light {
-  color: #fff;
+  color: white;
   border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .nav-tab__pic {
-  background-image: url(../../images/icon__COLOR_icon-main.svg);
+  background-image: url(../../images/icon_account_black.svg);
+  width: 12px;
+  height: 14px;
   padding-right: 6px;
   background-repeat: no-repeat;
   vertical-align: middle;
+}
+
+.nav-tab__pic_light {
+  background-image: url(../../images/icon_account_white.svg);
 }
 
 .nav-tab__burger {

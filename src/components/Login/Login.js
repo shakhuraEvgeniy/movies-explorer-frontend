@@ -10,7 +10,7 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(values.emailInput, values.passwordlInput)
+    onLogin(values.emailInput, values.passwordlInput);
   }
 
   return (

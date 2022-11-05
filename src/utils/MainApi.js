@@ -1,10 +1,11 @@
 import { MAIN_URL } from "./constants";
 
-const checkResponse = (res) => {
+const checkResponse = async (res) => {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка ${res.status}`);
+  const err = await res.json()
+  return Promise.reject(err);
 };
 
 export const register = async (email, password, name) => {

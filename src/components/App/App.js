@@ -43,12 +43,14 @@ const App = () => {
   const handleRegisterSubmit = async (email, password, name) => {
     try {
       await mainApi.register(email, password, name);
+      setIsSuccessInfoPopup(true);
+      openInfoPopup("Пользователь зарегистрирован");
       // setRegisterSuccess(true);
       history.push("/signin");
     } catch (e) {
       // setRegisterSuccess(false);
       setIsSuccessInfoPopup(false);
-      openInfoPopup(e);
+      openInfoPopup(e.message);
     }
   };
 
@@ -60,7 +62,7 @@ const App = () => {
     } catch (e) {
       // setRegisterSuccess(false);
       setIsSuccessInfoPopup(false);
-      openInfoPopup(e);
+      openInfoPopup(e.message);
     }
   };
 
@@ -70,7 +72,8 @@ const App = () => {
       setCurrentUser(user);
       setLoggedIn(true);
     } catch (e) {
-      console.log(e);
+      setIsSuccessInfoPopup(false);
+      openInfoPopup(e.message);
     }
   };
 
@@ -80,7 +83,8 @@ const App = () => {
       setCurrentUser([]);
       setLoggedIn(false);
     } catch (e) {
-      console.log(e);
+      setIsSuccessInfoPopup(false);
+      openInfoPopup(e.message);
     }
   };
 
@@ -89,7 +93,8 @@ const App = () => {
       const user = await mainApi.updateUser(email, name);
       setCurrentUser(user);
     } catch (e) {
-      console.log(e);
+      setIsSuccessInfoPopup(false);
+      openInfoPopup(e.message);
     }
   };
 
