@@ -15,40 +15,29 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import InfoPopup from "../InfoPopup/infoPopup";
 import { useEffect } from "react";
 import * as mainApi from "../../utils/MainApi";
+import { POPUP_ACTIV_PERIOD } from "../../utils/constants";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
-  // const [registerSuccess, setRegisterSuccess] = useState(false);
   const [isSuccessInfoPopup, setIsSuccessInfoPopup] = useState(false);
   const [textInfoPopup, setTextInfoPopup] = useState("");
   const history = useHistory();
 
+  //-----------Обработка пользователя--------------
+
   useEffect(() => {
     getDataUser();
   }, []);
-
-  useEffect(() => {
-    if (isInfoPopupOpen) {
-      setTimeout(setIsInfoPopupOpen, 10000, false);
-    }
-  }, [isInfoPopupOpen]);
-
-  const closePopup = () => {
-    setIsInfoPopupOpen(false);
-    setTextInfoPopup("");
-  };
 
   const handleRegisterSubmit = async (email, password, name) => {
     try {
       await mainApi.register(email, password, name);
       setIsSuccessInfoPopup(true);
       openInfoPopup("Пользователь зарегистрирован");
-      // setRegisterSuccess(true);
       history.push("/signin");
     } catch (e) {
-      // setRegisterSuccess(false);
       setIsSuccessInfoPopup(false);
       openInfoPopup(e.message);
     }
@@ -60,7 +49,6 @@ const App = () => {
       await getDataUser();
       history.push("/movies");
     } catch (e) {
-      // setRegisterSuccess(false);
       setIsSuccessInfoPopup(false);
       openInfoPopup(e.message);
     }
@@ -98,10 +86,25 @@ const App = () => {
     }
   };
 
+  //-----------информационный попап--------------
+
   const openInfoPopup = (title) => {
     setTextInfoPopup(title);
     setIsInfoPopupOpen(true);
   };
+
+  const closePopup = () => {
+    setIsInfoPopupOpen(false);
+    setTextInfoPopup("");
+  };
+
+  useEffect(() => {
+    if (isInfoPopupOpen) {
+      setTimeout(setIsInfoPopupOpen, POPUP_ACTIV_PERIOD, false);
+    }
+  }, [isInfoPopupOpen]);
+
+  //--------------обработка фильмов--------------
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -33,6 +33,7 @@ const Movies = ({ loggedIn }) => {
 
   const getMovies = async () => {
     try {
+      setIsNotFound(false);
       setIsLoading(true);
       setCards([]);
       const data = await moviesApi.getAllMovies();
