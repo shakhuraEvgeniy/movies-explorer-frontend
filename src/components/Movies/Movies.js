@@ -24,7 +24,32 @@ const Movies = ({ loggedIn, onSearch }) => {
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
   const [isActivAdd, setIsActivAdd] = useState(false);
-  let startCountRenderMovies = (window.screen.width >= 1280) ? 12 : window.screen.width >= 768 ? 8 : 5;
+  const [savedMovies, setSavedMovies] = useState([]);
+  let startCountRenderMovies =
+    window.screen.width >= 1280 ? 12 : window.screen.width >= 768 ? 8 : 5;
+
+  useEffect(() => {
+    localStorage.getItem("renderMovies") &&
+      setMovies(JSON.parse(localStorage.getItem("renderMovies")));
+    localStorage.getItem("searchInput") &&
+      setValues({
+        ...values,
+        searchInput: localStorage.getItem("searchInput"),
+      });
+    localStorage.getItem("filterCheckbox") &&
+      setIsShortFilm(JSON.parse(localStorage.getItem("filterCheckbox")));
+    getSaveMovies();
+    // return () => {
+    //   console.log(movies);
+    //   localStorage.setItem("renderMovies", JSON.stringify(movies));
+    // };
+  }, []);
+
+  // useEffect(() => {
+  //   return () => {
+  //     localStorage.setItem("renderMovies", JSON.stringify(movies));
+  //   };
+  // }, [movies]);
 
   window.addEventListener("resize", resizeThrottler, false);
 
@@ -53,17 +78,15 @@ const Movies = ({ loggedIn, onSearch }) => {
     }
   }
 
-  useEffect(() => {
-    localStorage.getItem("renderMovies") &&
-      setMovies(JSON.parse(localStorage.getItem("renderMovies")));
-    localStorage.getItem("searchInput") &&
-      setValues({
-        ...values,
-        searchInput: localStorage.getItem("searchInput"),
-      });
-      localStorage.getItem("filterCheckbox") &&
-    setIsShortFilm(JSON.parse(localStorage.getItem("filterCheckbox")));
-  }, []);
+  const getSaveMovies = async () => {
+    try {
+      setSavedMovies([]);
+      const data = await mainApi.getSavedMovie();
+      setSavedMovies(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const getMovies = async () => {
     try {
@@ -132,6 +155,26 @@ const Movies = ({ loggedIn, onSearch }) => {
     renderMovies();
   };
 
+  const handleLike = async (movie, imageUrl, isLiked) => {
+    try {
+      const saveMovie = await mainApi.changeLikedMovieStatus({
+        ...movie,
+        movieId: movie.id,
+        image: imageUrl,
+        isLiked,
+      });
+      setMovies((state) =>
+        state.map((c) =>
+          c.id === saveMovie.movieId
+            ? { ...c, _id: saveMovie._id, liked: !isLiked }
+            : c
+        )
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
       <Header loggedIn={loggedIn} />
@@ -144,7 +187,7 @@ const Movies = ({ loggedIn, onSearch }) => {
           isValid={isValid}
         />
         <FilterCheckbox onChange={handleCheckbox} checked={isShortFilm} />
-        <MoviesCardList saved={false} cards={movies} />
+        <MoviesCardList saved={false} cards={movies} onMovieLike={handleLike} />
         <NotFoundMovies isNotFound={isNotFound} />
         <Preloader isLoading={isLoading} />
         <button

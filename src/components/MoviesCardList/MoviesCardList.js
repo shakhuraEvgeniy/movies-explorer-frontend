@@ -2,11 +2,11 @@ import React from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-const MoviesCardList = ({ saved, cards }) => {
+const MoviesCardList = ({ saved, cards, onMovieLike }) => {
   return (
     <section className="movies-card-list">
       {cards.map((card) => (
-        <MoviesCard key={card.id} card={card} saved={saved} />
+        <MoviesCard key={card.id} card={card} saved={saved} onMovieLike={onMovieLike}/>
       ))}
     </section>
   );
