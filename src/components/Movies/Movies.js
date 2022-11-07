@@ -10,9 +10,11 @@ import * as moviesApi from "../../utils/MoviesApi";
 import { useState } from "react";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import NotFoundMovies from "../NotFoundMovies/NotFoundMovies";
+import * as mainApi from "../../utils/MainApi";
+
+let countRenderMovies = 12;
 
 const Movies = ({ loggedIn, onSearch }) => {
-  const [allFindMovies, setAllFindMovies] = useState([]);
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { values, handleChange, setValues, errors, isValid } =
@@ -22,61 +24,46 @@ const Movies = ({ loggedIn, onSearch }) => {
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
   const [isActivAdd, setIsActivAdd] = useState(false);
-  const [countRenderMovies, setCountRenderMovies] = useState(3);
+  let startCountRenderMovies = (window.screen.width >= 1280) ? 12 : window.screen.width >= 768 ? 8 : 5;
 
   window.addEventListener("resize", resizeThrottler, false);
 
   let resizeTimeout;
   function resizeThrottler() {
-    if ( !resizeTimeout ) {
-      resizeTimeout = setTimeout(function() {
+    if (!resizeTimeout) {
+      resizeTimeout = setTimeout(function () {
         resizeTimeout = null;
         actualResizeHandler();
-       }, 1000);
+      }, 1000);
     }
   }
 
   function actualResizeHandler() {
     if (window.screen.width >= 1280) {
-      setCountRenderMovies(12);
+      countRenderMovies = 12;
+      renderMovies();
     } else {
       if (window.screen.width >= 768) {
-        setCountRenderMovies(8);
+        countRenderMovies = 8;
+        renderMovies();
       } else {
-        setCountRenderMovies(5);
+        countRenderMovies = 5;
+        renderMovies();
       }
     }
   }
 
   useEffect(() => {
-    localStorage.getItem("movies") &&
-      setAllFindMovies(JSON.parse(localStorage.getItem("movies")));
     localStorage.getItem("renderMovies") &&
       setMovies(JSON.parse(localStorage.getItem("renderMovies")));
-    setValues({
-      ...values,
-      searchInput: localStorage.getItem("searchInput"),
-    });
-    setIsShortFilm(Boolean(localStorage.getItem("filterCheckbox")));
-
-    //renderMovies();
+    localStorage.getItem("searchInput") &&
+      setValues({
+        ...values,
+        searchInput: localStorage.getItem("searchInput"),
+      });
+      localStorage.getItem("filterCheckbox") &&
+    setIsShortFilm(JSON.parse(localStorage.getItem("filterCheckbox")));
   }, []);
-
-  useEffect(() => {
-    if (window.screen.width >= 1280) {
-      setCountRenderMovies(12);
-    } else {
-      if (window.screen.width >= 768) {
-        setCountRenderMovies(8);
-      } else {
-        setCountRenderMovies(5);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    renderMovies();
-  }, [countRenderMovies]);
 
   const getMovies = async () => {
     try {
@@ -93,12 +80,14 @@ const Movies = ({ loggedIn, onSearch }) => {
   };
 
   const saveDataToLS = () => {
-    localStorage.setItem("movies", JSON.stringify(allFindMovies));
     localStorage.setItem("searchInput", values.searchInput);
-    localStorage.setItem("filterCheckbox", String(isShortFilm));
+    localStorage.setItem("filterCheckbox", JSON.stringify(isShortFilm));
   };
 
   const renderMovies = () => {
+    const allFindMovies = localStorage.getItem("allFindMovies")
+      ? JSON.parse(localStorage.getItem("allFindMovies"))
+      : [];
     const activMovie = allFindMovies.slice(0, countRenderMovies);
     activMovie.length < allFindMovies.length
       ? setIsActivAdd(true)
@@ -109,16 +98,19 @@ const Movies = ({ loggedIn, onSearch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsActivAdd(false);
     const data = await getMovies();
     const findMovies = onSearch(data, values.searchInput, isShortFilm);
-    setAllFindMovies(findMovies);
+    localStorage.setItem("allFindMovies", JSON.stringify(findMovies));
     if (findMovies.length === 0) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
     }
     saveDataToLS();
-    countRenderMovies < 3 ? setCountRenderMovies(3) : renderMovies();
+    if (startCountRenderMovies < countRenderMovies)
+      countRenderMovies = startCountRenderMovies;
+    renderMovies();
   };
 
   const handleCheckbox = () => {
@@ -127,7 +119,7 @@ const Movies = ({ loggedIn, onSearch }) => {
 
   const addMovies = () => {
     let countAdd;
-     if (window.screen.width >= 1280) {
+    if (window.screen.width >= 1280) {
       countAdd = 3;
     } else {
       if (window.screen.width >= 768) {
@@ -136,7 +128,8 @@ const Movies = ({ loggedIn, onSearch }) => {
         countAdd = 2;
       }
     }
-    setCountRenderMovies(countRenderMovies + countAdd);
+    countRenderMovies = countRenderMovies + countAdd;
+    renderMovies();
   };
 
   return (
