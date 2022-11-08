@@ -10,11 +10,10 @@ import * as moviesApi from "../../utils/MoviesApi";
 import { useState } from "react";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import NotFoundMovies from "../NotFoundMovies/NotFoundMovies";
-import * as mainApi from "../../utils/MainApi";
 
 let countRenderMovies = 12;
 
-const Movies = ({ loggedIn, onSearch, getSaveMovies }) => {
+const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { values, handleChange, setValues, errors, isValid } =
@@ -70,7 +69,6 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies }) => {
 
   const getSavedMovies = async () => {
     const saveMovies = await getSaveMovies();
-    console.log(saveMovies);
     setSavedMovies(saveMovies)
   }
 
@@ -151,13 +149,7 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies }) => {
   };
 
   const handleLike = async (movie, imageUrl, isLiked) => {
-    try {
-      const saveMovie = await mainApi.changeLikedMovieStatus({
-        ...movie,
-        movieId: movie.id,
-        image: imageUrl,
-        isLiked,
-      });
+      const saveMovie = await onMovieLike(movie, imageUrl, isLiked);
       const newMovies = movies.map((c) =>
       c.id === saveMovie.movieId
         ? { ...c, _id: saveMovie._id }
@@ -165,9 +157,6 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies }) => {
     )
       setMovies(newMovies);
       localStorage.setItem("renderMovies", JSON.stringify(newMovies));
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   return (

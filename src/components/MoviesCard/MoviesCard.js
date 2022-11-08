@@ -1,17 +1,17 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
+import { IMAGE_URL } from "../../utils/constants";
 import "./MoviesCard.css";
 
 const MoviesCard = ({ card, saved, onMovieLike }) => {
-  const { image, nameRU, duration, liked, trailerLink, _id } = card;
+  const { image, nameRU, duration, trailerLink, _id } = card;
   const [isLiked, setIsLiked] = useState(_id ? true : false);
   const handleLiked = () => {
     onMovieLike(card, imageUrl, isLiked);
     saved || setIsLiked(!isLiked);
   };
 
-  const imageUrl = image.url ? `https://api.nomoreparties.co${image.url}`: image;
+  const imageUrl = image.url ? IMAGE_URL+image.url: image;
   const durationFloor = Math.floor(duration / 60);
   const durationResidue = duration % 60;
 

@@ -113,35 +113,30 @@ const App = () => {
           searchInpit.toLowerCase()
         ) && (isShortFilm ? item.duration <= 40 : item.duration > 0)
     );
-  }
+  };
 
   const getSaveMovies = async () => {
     try {
       return await mainApi.getSavedMovie();
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      setIsSuccessInfoPopup(false);
+      openInfoPopup(e.message);
     }
   };
 
-    // const handleLike = async (movie, imageUrl, isLiked) => {
-  //   try {
-  //     const saveMovie = await mainApi.changeLikedMovieStatus({
-  //       ...movie,
-  //       movieId: movie.id,
-  //       image: imageUrl,
-  //       isLiked,
-  //     });
-  //     setMovies((state) =>
-  //       state.map((c) =>
-  //         c.id === saveMovie.movieId
-  //           ? { ...c, _id: saveMovie._id }
-  //           : c
-  //       )
-  //     );
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const handleLike = async (movie, imageUrl, isLiked) => {
+    try {
+      return await mainApi.changeLikedMovieStatus({
+        ...movie,
+        movieId: movie.id,
+        image: imageUrl,
+        isLiked,
+      });
+    } catch (e) {
+      setIsSuccessInfoPopup(false);
+      openInfoPopup(e.message);
+    }
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -158,6 +153,7 @@ const App = () => {
             component={Movies}
             onSearch={searchMovies}
             getSaveMovies={getSaveMovies}
+            onMovieLike={handleLike}
           />
           <ProtectedRoute
             path="/saved-movies"
@@ -165,8 +161,8 @@ const App = () => {
             loggedIn={loggedIn}
             component={SavedMovies}
             onSearch={searchMovies}
+            onMovieLike={handleLike}
           />
-          {/* <ProtectedRoute path="/saved-movies" component={Footer} /> */}
           <ProtectedRoute
             path="/profile"
             loggedIn={loggedIn}
@@ -175,10 +171,18 @@ const App = () => {
             onUpdate={handleUpdateUser}
           />
           <Route path="/signin">
-            <Login onLogin={handleLoginSubmit} />
+            {!loggedIn ? (
+              <Login onLogin={handleLoginSubmit} />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route path="/signup">
-            <Register onRegister={handleRegisterSubmit} />
+            {!loggedIn ? (
+              <Register onRegister={handleRegisterSubmit} />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route>
             {loggedIn ? <Redirect exact to="/movies" /> : <Redirect to="/" />}
