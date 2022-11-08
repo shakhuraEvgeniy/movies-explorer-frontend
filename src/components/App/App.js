@@ -115,6 +115,34 @@ const App = () => {
     );
   }
 
+  const getSaveMovies = async () => {
+    try {
+      return await mainApi.getSavedMovie();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+    // const handleLike = async (movie, imageUrl, isLiked) => {
+  //   try {
+  //     const saveMovie = await mainApi.changeLikedMovieStatus({
+  //       ...movie,
+  //       movieId: movie.id,
+  //       image: imageUrl,
+  //       isLiked,
+  //     });
+  //     setMovies((state) =>
+  //       state.map((c) =>
+  //         c.id === saveMovie.movieId
+  //           ? { ...c, _id: saveMovie._id }
+  //           : c
+  //       )
+  //     );
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -129,13 +157,16 @@ const App = () => {
             loggedIn={loggedIn}
             component={Movies}
             onSearch={searchMovies}
+            getSaveMovies={getSaveMovies}
           />
           <ProtectedRoute
             path="/saved-movies"
+            getSaveMovies={getSaveMovies}
             loggedIn={loggedIn}
             component={SavedMovies}
+            onSearch={searchMovies}
           />
-          <ProtectedRoute path="/saved-movies" component={Footer} />
+          {/* <ProtectedRoute path="/saved-movies" component={Footer} /> */}
           <ProtectedRoute
             path="/profile"
             loggedIn={loggedIn}

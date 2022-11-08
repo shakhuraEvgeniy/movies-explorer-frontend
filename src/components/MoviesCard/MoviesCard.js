@@ -3,15 +3,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import "./MoviesCard.css";
 
-const MoviesCard = ({ card, saved, onMovieLike, isLike }) => {
-  const { image, nameRU, duration, liked, trailerLink } = card;
-  const [isLiked, setIsLiked] = useState(liked);
+const MoviesCard = ({ card, saved, onMovieLike }) => {
+  const { image, nameRU, duration, liked, trailerLink, _id } = card;
+  const [isLiked, setIsLiked] = useState(_id ? true : false);
   const handleLiked = () => {
     onMovieLike(card, imageUrl, isLiked);
     saved || setIsLiked(!isLiked);
   };
 
-  const imageUrl = `https://api.nomoreparties.co${image.url}`;
+  const imageUrl = image.url ? `https://api.nomoreparties.co${image.url}`: image;
   const durationFloor = Math.floor(duration / 60);
   const durationResidue = duration % 60;
 

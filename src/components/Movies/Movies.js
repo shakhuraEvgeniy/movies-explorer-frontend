@@ -14,7 +14,7 @@ import * as mainApi from "../../utils/MainApi";
 
 let countRenderMovies = 12;
 
-const Movies = ({ loggedIn, onSearch }) => {
+const Movies = ({ loggedIn, onSearch, getSaveMovies }) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { values, handleChange, setValues, errors, isValid } =
@@ -38,18 +38,8 @@ const Movies = ({ loggedIn, onSearch }) => {
       });
     localStorage.getItem("filterCheckbox") &&
       setIsShortFilm(JSON.parse(localStorage.getItem("filterCheckbox")));
-    getSaveMovies();
-    // return () => {
-    //   console.log(movies);
-    //   localStorage.setItem("renderMovies", JSON.stringify(movies));
-    // };
+      getSavedMovies();
   }, []);
-
-  // useEffect(() => {
-  //   return () => {
-  //     localStorage.setItem("renderMovies", JSON.stringify(movies));
-  //   };
-  // }, [movies]);
 
   window.addEventListener("resize", resizeThrottler, false);
 
@@ -78,15 +68,11 @@ const Movies = ({ loggedIn, onSearch }) => {
     }
   }
 
-  const getSaveMovies = async () => {
-    try {
-      setSavedMovies([]);
-      const data = await mainApi.getSavedMovie();
-      setSavedMovies(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const getSavedMovies = async () => {
+    const saveMovies = await getSaveMovies();
+    console.log(saveMovies);
+    setSavedMovies(saveMovies)
+  }
 
   const getMovies = async () => {
     try {
@@ -107,6 +93,15 @@ const Movies = ({ loggedIn, onSearch }) => {
     localStorage.setItem("filterCheckbox", JSON.stringify(isShortFilm));
   };
 
+  const sortedMovies = (activMovie) =>{
+    const newArray = activMovie.map((item) => {
+      const newItem = savedMovies.find(c => c.movieId === item.id )
+      return (newItem) ? {...item, _id: newItem._id, liked: true} : item
+    })
+    setMovies(newArray);
+    return newArray
+  }
+
   const renderMovies = () => {
     const allFindMovies = localStorage.getItem("allFindMovies")
       ? JSON.parse(localStorage.getItem("allFindMovies"))
@@ -115,8 +110,8 @@ const Movies = ({ loggedIn, onSearch }) => {
     activMovie.length < allFindMovies.length
       ? setIsActivAdd(true)
       : setIsActivAdd(false);
-    setMovies(activMovie);
-    localStorage.setItem("renderMovies", JSON.stringify(activMovie));
+    const sortMovies = sortedMovies(activMovie)
+    localStorage.setItem("renderMovies", JSON.stringify(sortMovies));
   };
 
   const handleSubmit = async (e) => {
@@ -163,13 +158,13 @@ const Movies = ({ loggedIn, onSearch }) => {
         image: imageUrl,
         isLiked,
       });
-      setMovies((state) =>
-        state.map((c) =>
-          c.id === saveMovie.movieId
-            ? { ...c, _id: saveMovie._id, liked: !isLiked }
-            : c
-        )
-      );
+      const newMovies = movies.map((c) =>
+      c.id === saveMovie.movieId
+        ? { ...c, _id: saveMovie._id }
+        : c
+    )
+      setMovies(newMovies);
+      localStorage.setItem("renderMovies", JSON.stringify(newMovies));
     } catch (e) {
       console.log(e);
     }
