@@ -1,7 +1,6 @@
 import "./SearchForm.css";
 
-const SearchForm = ({ onSubmit, onChange, values, errors, isValid }) => {
-
+const SearchForm = ({ onSubmit, onChange, values }) => {
   return (
     <div className="search">
       <form className="search__form" onSubmit={onSubmit}>
@@ -12,10 +11,8 @@ const SearchForm = ({ onSubmit, onChange, values, errors, isValid }) => {
           placeholder="Фильм"
           onChange={onChange}
           value={values.searchInput || ""}
-          required
         ></input>
-        <span className="search__input-error">{errors.searchInput}</span>
-        <button className="search__button" type="submit" disabled={!isValid}>
+        <button className="search__button" type="submit">
           Поиск
         </button>
       </form>

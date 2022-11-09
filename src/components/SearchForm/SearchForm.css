@@ -1,6 +1,7 @@
 .search {
   margin: auto;
   margin-top: 70px;
+  margin-bottom: 23px;
 }
 
 .search__form {
@@ -8,17 +9,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-.search__input-error {
-  margin-top: 10px;
-  margin-left: 10px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
-  color: #ff004c;
-  text-align: left;
-  min-height: 13px;
 }
 
 .search__input {

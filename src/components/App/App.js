@@ -15,7 +15,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import InfoPopup from "../InfoPopup/infoPopup";
 import { useEffect } from "react";
 import * as mainApi from "../../utils/MainApi";
-import { POPUP_ACTIV_PERIOD } from "../../utils/constants";
+import { DURATION_SHORT_FILM, POPUP_ACTIV_PERIOD } from "../../utils/constants";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -34,12 +34,10 @@ const App = () => {
   const handleRegisterSubmit = async (email, password, name) => {
     try {
       await mainApi.register(email, password, name);
-      setIsSuccessInfoPopup(true);
-      openInfoPopup("Пользователь зарегистрирован");
+      openPopup(true, "Пользователь зарегистрирован");
       history.push("/signin");
     } catch (e) {
-      setIsSuccessInfoPopup(false);
-      openInfoPopup(e.message);
+      openPopup(false, e.message);
     }
   };
 
@@ -49,8 +47,7 @@ const App = () => {
       await getDataUser();
       history.push("/movies");
     } catch (e) {
-      setIsSuccessInfoPopup(false);
-      openInfoPopup(e.message);
+      openPopup(false, e.message);
     }
   };
 
@@ -60,8 +57,7 @@ const App = () => {
       setCurrentUser(user);
       setLoggedIn(true);
     } catch (e) {
-      setIsSuccessInfoPopup(false);
-      openInfoPopup(e.message);
+      openPopup(false, e.message);
     }
   };
 
@@ -71,8 +67,7 @@ const App = () => {
       setCurrentUser([]);
       setLoggedIn(false);
     } catch (e) {
-      setIsSuccessInfoPopup(false);
-      openInfoPopup(e.message);
+      openPopup(false, e.message);
     }
   };
 
@@ -81,8 +76,7 @@ const App = () => {
       const user = await mainApi.updateUser(email, name);
       setCurrentUser(user);
     } catch (e) {
-      setIsSuccessInfoPopup(false);
-      openInfoPopup(e.message);
+      openPopup(false, e.message);
     }
   };
 
@@ -111,7 +105,8 @@ const App = () => {
       (item) =>
         (item.nameRU.toLowerCase() || item.nameEN.toLowerCase()).includes(
           searchInpit.toLowerCase()
-        ) && (isShortFilm ? item.duration <= 40 : item.duration > 0)
+        ) &&
+        (isShortFilm ? item.duration <= DURATION_SHORT_FILM : item.duration > 0)
     );
   };
 
@@ -119,8 +114,7 @@ const App = () => {
     try {
       return await mainApi.getSavedMovie();
     } catch (e) {
-      setIsSuccessInfoPopup(false);
-      openInfoPopup(e.message);
+      openPopup(false, e.message);
     }
   };
 
@@ -133,8 +127,21 @@ const App = () => {
         isLiked,
       });
     } catch (e) {
-      setIsSuccessInfoPopup(false);
-      openInfoPopup(e.message);
+      openPopup(false, e.message);
+    }
+  };
+
+  const openPopup = (status, message) => {
+    setIsSuccessInfoPopup(status);
+    openInfoPopup(message);
+  };
+
+  const checkedValidSearchForm = (value) => {
+    if (value) {
+      return true;
+    } else {
+      openPopup(false, "Нужно ввести ключевое слово");
+      return false;
     }
   };
 
@@ -154,6 +161,7 @@ const App = () => {
             onSearch={searchMovies}
             getSaveMovies={getSaveMovies}
             onMovieLike={handleLike}
+            onCheckValidSearchForm={checkedValidSearchForm}
           />
           <ProtectedRoute
             path="/saved-movies"
@@ -162,6 +170,7 @@ const App = () => {
             component={SavedMovies}
             onSearch={searchMovies}
             onMovieLike={handleLike}
+            onCheckValidSearchForm={checkedValidSearchForm}
           />
           <ProtectedRoute
             path="/profile"

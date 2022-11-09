@@ -1,4 +1,12 @@
 export const MOVIES_URL = "https://api.nomoreparties.co/beatfilm-movies";
 export const IMAGE_URL = "https://api.nomoreparties.co";
-export const MAIN_URL = "https://api.diplom.eshakhura.ru";
+// export const MAIN_URL = "https://api.diplom.eshakhura.ru";
+export const MAIN_URL = "http://localhost:3000";
 export const POPUP_ACTIV_PERIOD = 10000;
+export const COUNT_MOVIES_1280 = 12;
+export const COUNT_MOVIES_768 = 8;
+export const COUNT_MOVIES_480 = 5;
+export const ADD_MOVIES_1280 = 3;
+export const ADD_MOVIES_768 = 2;
+export const ADD_MOVIES_480 = 2;
+export const DURATION_SHORT_FILM = 40;

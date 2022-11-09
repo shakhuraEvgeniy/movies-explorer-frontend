@@ -8,7 +8,13 @@ import NotFoundMovies from "../NotFoundMovies/NotFoundMovies";
 import SearchForm from "../SearchForm/SearchForm";
 import "./SavedMovies.css";
 
-const SavedMovies = ({ loggedIn, getSaveMovies, onSearch, onMovieLike }) => {
+const SavedMovies = ({
+  loggedIn,
+  getSaveMovies,
+  onSearch,
+  onMovieLike,
+  onCheckValidSearchForm,
+}) => {
   const [allSavedMovies, setAllSavedMovies] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
   const [movies, setMovies] = useState([]);
@@ -35,17 +41,19 @@ const SavedMovies = ({ loggedIn, getSaveMovies, onSearch, onMovieLike }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const findMovies = onSearch(
-      allSavedMovies,
-      values.searchInput,
-      isShortFilm
-    );
-    if (findMovies.length === 0) {
-      setIsNotFound(true);
-    } else {
-      setIsNotFound(false);
+    if (onCheckValidSearchForm(values.searchInput)) {
+      const findMovies = onSearch(
+        allSavedMovies,
+        values.searchInput,
+        isShortFilm
+      );
+      if (findMovies.length === 0) {
+        setIsNotFound(true);
+      } else {
+        setIsNotFound(false);
+      }
+      setMovies(findMovies);
     }
-    setMovies(findMovies);
   };
 
   const handleLike = async (movie, imageUrl, isLiked) => {

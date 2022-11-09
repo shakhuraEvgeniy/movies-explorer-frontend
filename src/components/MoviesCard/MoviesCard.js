@@ -11,7 +11,7 @@ const MoviesCard = ({ card, saved, onMovieLike }) => {
     saved || setIsLiked(!isLiked);
   };
 
-  const imageUrl = image.url ? IMAGE_URL+image.url: image;
+  const imageUrl = image.url ? IMAGE_URL + image.url : image;
   const durationFloor = Math.floor(duration / 60);
   const durationResidue = duration % 60;
 

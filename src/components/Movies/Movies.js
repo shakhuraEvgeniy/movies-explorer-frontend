@@ -10,22 +10,40 @@ import * as moviesApi from "../../utils/MoviesApi";
 import { useState } from "react";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import NotFoundMovies from "../NotFoundMovies/NotFoundMovies";
+import {
+  ADD_MOVIES_1280,
+  ADD_MOVIES_480,
+  ADD_MOVIES_768,
+  COUNT_MOVIES_1280,
+  COUNT_MOVIES_480,
+  COUNT_MOVIES_768,
+} from "../../utils/constants";
 
-let countRenderMovies = 12;
+let countRenderMovies = COUNT_MOVIES_1280;
 
-const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
+const Movies = ({
+  loggedIn,
+  onSearch,
+  getSaveMovies,
+  onMovieLike,
+  onCheckValidSearchForm,
+}) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { values, handleChange, setValues, errors, isValid } =
-    useFormWithValidation({
-      searchInput: "",
-    });
+  const { values, handleChange, setValues } = useFormWithValidation({
+    searchInput: "",
+  });
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
   const [isActivAdd, setIsActivAdd] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
+
   let startCountRenderMovies =
-    window.screen.width >= 1280 ? 12 : window.screen.width >= 768 ? 8 : 5;
+    window.screen.width >= 1280
+      ? COUNT_MOVIES_1280
+      : window.screen.width >= 768
+      ? COUNT_MOVIES_768
+      : COUNT_MOVIES_480;
 
   useEffect(() => {
     localStorage.getItem("renderMovies") &&
@@ -37,10 +55,12 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
       });
     localStorage.getItem("filterCheckbox") &&
       setIsShortFilm(JSON.parse(localStorage.getItem("filterCheckbox")));
-      getSavedMovies();
+    getSavedMovies();
+    window.addEventListener("resize", resizeThrottler, false);
+    return () => {
+      window.addEventListener("resize", resizeThrottler, false);
+    };
   }, []);
-
-  window.addEventListener("resize", resizeThrottler, false);
 
   let resizeTimeout;
   function resizeThrottler() {
@@ -54,14 +74,14 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
 
   function actualResizeHandler() {
     if (window.screen.width >= 1280) {
-      countRenderMovies = 12;
+      countRenderMovies = COUNT_MOVIES_1280;
       renderMovies();
     } else {
       if (window.screen.width >= 768) {
-        countRenderMovies = 8;
+        countRenderMovies = COUNT_MOVIES_768;
         renderMovies();
       } else {
-        countRenderMovies = 5;
+        countRenderMovies = COUNT_MOVIES_480;
         renderMovies();
       }
     }
@@ -69,8 +89,8 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
 
   const getSavedMovies = async () => {
     const saveMovies = await getSaveMovies();
-    setSavedMovies(saveMovies)
-  }
+    setSavedMovies(saveMovies);
+  };
 
   const getMovies = async () => {
     try {
@@ -91,14 +111,14 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
     localStorage.setItem("filterCheckbox", JSON.stringify(isShortFilm));
   };
 
-  const sortedMovies = (activMovie) =>{
+  const sortedMovies = (activMovie) => {
     const newArray = activMovie.map((item) => {
-      const newItem = savedMovies.find(c => c.movieId === item.id )
-      return (newItem) ? {...item, _id: newItem._id, liked: true} : item
-    })
+      const newItem = savedMovies.find((c) => c.movieId === item.id);
+      return newItem ? { ...item, _id: newItem._id, liked: true } : item;
+    });
     setMovies(newArray);
-    return newArray
-  }
+    return newArray;
+  };
 
   const renderMovies = () => {
     const allFindMovies = localStorage.getItem("allFindMovies")
@@ -108,25 +128,28 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
     activMovie.length < allFindMovies.length
       ? setIsActivAdd(true)
       : setIsActivAdd(false);
-    const sortMovies = sortedMovies(activMovie)
+    const sortMovies = sortedMovies(activMovie);
     localStorage.setItem("renderMovies", JSON.stringify(sortMovies));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsActivAdd(false);
-    const data = await getMovies();
-    const findMovies = onSearch(data, values.searchInput, isShortFilm);
-    localStorage.setItem("allFindMovies", JSON.stringify(findMovies));
-    if (findMovies.length === 0) {
-      setIsNotFound(true);
-    } else {
-      setIsNotFound(false);
+    if (onCheckValidSearchForm(values.searchInput)) {
+      setIsActivAdd(false);
+      const data = await getMovies();
+
+      const findMovies = onSearch(data, values.searchInput, isShortFilm);
+      localStorage.setItem("allFindMovies", JSON.stringify(findMovies));
+      if (findMovies.length === 0) {
+        setIsNotFound(true);
+      } else {
+        setIsNotFound(false);
+      }
+      saveDataToLS();
+      if (startCountRenderMovies < countRenderMovies)
+        countRenderMovies = startCountRenderMovies;
+      renderMovies();
     }
-    saveDataToLS();
-    if (startCountRenderMovies < countRenderMovies)
-      countRenderMovies = startCountRenderMovies;
-    renderMovies();
   };
 
   const handleCheckbox = () => {
@@ -136,12 +159,12 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
   const addMovies = () => {
     let countAdd;
     if (window.screen.width >= 1280) {
-      countAdd = 3;
+      countAdd = ADD_MOVIES_1280;
     } else {
       if (window.screen.width >= 768) {
-        countAdd = 2;
+        countAdd = ADD_MOVIES_768;
       } else {
-        countAdd = 2;
+        countAdd = ADD_MOVIES_480;
       }
     }
     countRenderMovies = countRenderMovies + countAdd;
@@ -149,14 +172,12 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
   };
 
   const handleLike = async (movie, imageUrl, isLiked) => {
-      const saveMovie = await onMovieLike(movie, imageUrl, isLiked);
-      const newMovies = movies.map((c) =>
-      c.id === saveMovie.movieId
-        ? { ...c, _id: saveMovie._id }
-        : c
-    )
-      setMovies(newMovies);
-      localStorage.setItem("renderMovies", JSON.stringify(newMovies));
+    const saveMovie = await onMovieLike(movie, imageUrl, isLiked);
+    const newMovies = movies.map((c) =>
+      c.id === saveMovie.movieId ? { ...c, _id: saveMovie._id } : c
+    );
+    setMovies(newMovies);
+    localStorage.setItem("renderMovies", JSON.stringify(newMovies));
   };
 
   return (
@@ -167,8 +188,6 @@ const Movies = ({ loggedIn, onSearch, getSaveMovies, onMovieLike }) => {
           onSubmit={handleSubmit}
           onChange={handleChange}
           values={values}
-          errors={errors}
-          isValid={isValid}
         />
         <FilterCheckbox onChange={handleCheckbox} checked={isShortFilm} />
         <MoviesCardList saved={false} cards={movies} onMovieLike={handleLike} />
