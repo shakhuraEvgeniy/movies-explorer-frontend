@@ -23,6 +23,7 @@ const App = () => {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
   const [isSuccessInfoPopup, setIsSuccessInfoPopup] = useState(false);
   const [textInfoPopup, setTextInfoPopup] = useState("");
+  const [isBloked, setIsBloked] = useState(false);
   const history = useHistory();
 
   //-----------Обработка пользователя--------------
@@ -33,21 +34,26 @@ const App = () => {
 
   const handleRegisterSubmit = async (email, password, name) => {
     try {
+      setIsBloked(true)
       await mainApi.register(email, password, name);
-      openPopup(true, "Пользователь зарегистрирован");
-      history.push("/signin");
+      await handleLoginSubmit(email, password)
     } catch (e) {
       openPopup(false, e.message);
+    } finally {
+      setIsBloked(false)
     }
   };
 
   const handleLoginSubmit = async (email, password) => {
     try {
+      setIsBloked(true)
       await mainApi.auth(email, password);
       await getDataUser();
       history.push("/movies");
     } catch (e) {
       openPopup(false, e.message);
+    } finally {
+      setIsBloked(false)
     }
   };
 
@@ -63,20 +69,28 @@ const App = () => {
 
   const handleLogoutSubmit = async () => {
     try {
+      setIsBloked(true)
       await mainApi.logout();
       setCurrentUser([]);
       setLoggedIn(false);
+      localStorage.clear()
     } catch (e) {
       openPopup(false, e.message);
+    } finally {
+      setIsBloked(false)
     }
   };
 
   const handleUpdateUser = async (email, name) => {
     try {
+      setIsBloked(true)
       const user = await mainApi.updateUser(email, name);
+      openPopup(true, "Данные пользователя обновлены");
       setCurrentUser(user);
     } catch (e) {
       openPopup(false, e.message);
+    } finally {
+      setIsBloked(false)
     }
   };
 
@@ -112,14 +126,18 @@ const App = () => {
 
   const getSaveMovies = async () => {
     try {
+      setIsBloked(true)
       return await mainApi.getSavedMovie();
     } catch (e) {
       openPopup(false, e.message);
+    } finally {
+      setIsBloked(false)
     }
   };
 
   const handleLike = async (movie, imageUrl, isLiked) => {
     try {
+      setIsBloked(true)
       return await mainApi.changeLikedMovieStatus({
         ...movie,
         movieId: movie.id,
@@ -128,6 +146,8 @@ const App = () => {
       });
     } catch (e) {
       openPopup(false, e.message);
+    } finally {
+      setIsBloked(false)
     }
   };
 
@@ -162,6 +182,7 @@ const App = () => {
             getSaveMovies={getSaveMovies}
             onMovieLike={handleLike}
             onCheckValidSearchForm={checkedValidSearchForm}
+            isBloked={isBloked}
           />
           <ProtectedRoute
             path="/saved-movies"
@@ -171,6 +192,7 @@ const App = () => {
             onSearch={searchMovies}
             onMovieLike={handleLike}
             onCheckValidSearchForm={checkedValidSearchForm}
+            isBloked={isBloked}
           />
           <ProtectedRoute
             path="/profile"
@@ -178,17 +200,18 @@ const App = () => {
             component={Profile}
             onLogout={handleLogoutSubmit}
             onUpdate={handleUpdateUser}
+            isBloked={isBloked}
           />
           <Route path="/signin">
             {!loggedIn ? (
-              <Login onLogin={handleLoginSubmit} />
+              <Login onLogin={handleLoginSubmit} isBloked={isBloked}/>
             ) : (
               <Redirect to="/" />
             )}
           </Route>
           <Route path="/signup">
             {!loggedIn ? (
-              <Register onRegister={handleRegisterSubmit} />
+              <Register onRegister={handleRegisterSubmit} isBloked={isBloked}/>
             ) : (
               <Redirect to="/" />
             )}

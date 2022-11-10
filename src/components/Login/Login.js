@@ -2,7 +2,7 @@ import Auth from "../Auth/Auth";
 import "../Auth/Auth.css";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, isBloked }) => {
   const { values, handleChange, errors, isValid } = useFormWithValidation({
     emailInput: "",
     passwordlInput: "",
@@ -11,10 +11,17 @@ const Login = ({ onLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onLogin(values.emailInput, values.passwordlInput);
-  }
+  };
 
   return (
-    <Auth name="login" title="Рады видеть!" buttonText="Войти" isValid={isValid} onSubmit={handleSubmit}>
+    <Auth
+      name="login"
+      title="Рады видеть!"
+      buttonText="Войти"
+      isValid={isValid}
+      onSubmit={handleSubmit}
+      isBloked={isBloked}
+    >
       <div className="auth__input-block">
         <h3 className="auth__name">E-mail</h3>
         <input
@@ -23,6 +30,7 @@ const Login = ({ onLogin }) => {
           name="emailInput"
           onChange={handleChange}
           value={values.emailInput || ""}
+          disabled={isBloked}
         ></input>
         <span className="auth__input-error">{errors.emailInput}</span>
       </div>
@@ -35,6 +43,7 @@ const Login = ({ onLogin }) => {
           onChange={handleChange}
           required
           value={values.passwordlInput || ""}
+          disabled={isBloked}
         ></input>
         <span className="auth__input-error">{errors.passwordlInput}</span>
       </div>

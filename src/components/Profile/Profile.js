@@ -4,18 +4,25 @@ import Header from "../Header/Header";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import "./Profile.css";
 
-const Profile = ({ loggedIn, onLogout, onUpdate }) => {
+const Profile = ({ loggedIn, onLogout, onUpdate, isBloked }) => {
   const currentUser = useContext(CurrentUserContext);
   const [edit, setEdit] = useState(false);
+  const [isChangeProfile, setIsChangeProfile] = useState(false);
+  const { values, handleChange, errors, isValid, setValues } =
+    useFormWithValidation({
+      emailInput: "",
+      nameInput: "",
+    });
 
   const onEditProfile = () => {
     setEdit(true);
+    setIsChangeProfile(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onUpdate(values.emailInput, values.nameInput);
-    setEdit(false)
+    await onUpdate(values.emailInput, values.nameInput);
+    setEdit(false);
   };
 
   useEffect(() => {
@@ -26,10 +33,12 @@ const Profile = ({ loggedIn, onLogout, onUpdate }) => {
     });
   }, [currentUser]);
 
-  const { values, handleChange, errors, isValid, setValues } = useFormWithValidation({
-    emailInput: "",
-    nameInput: "",
-  });
+  useEffect(() => {
+    values.emailInput === currentUser.email &&
+    values.nameInput === currentUser.name
+      ? setIsChangeProfile(false)
+      : setIsChangeProfile(true);
+  }, [values.emailInput, values.nameInput]);
 
   return (
     <>
@@ -45,7 +54,7 @@ const Profile = ({ loggedIn, onLogout, onUpdate }) => {
               onChange={handleChange}
               value={values.nameInput || ""}
               required
-              disabled={!edit}
+              disabled={!edit || isBloked}
             ></input>
             <span className="profile__input-error">{errors.nameInput}</span>
           </div>
@@ -58,14 +67,16 @@ const Profile = ({ loggedIn, onLogout, onUpdate }) => {
               onChange={handleChange}
               value={values.emailInput || ""}
               className="profile__input"
-              disabled={!edit}
+              disabled={!edit || isBloked}
             ></input>
             <span className="profile__input-error">{errors.emailInput}</span>
           </div>
           <button
             type="submit"
-            className={`profile__submit ${edit || "button_disabled"} ${isValid && "active"}`}
-            disabled={!isValid}
+            className={`profile__submit ${edit || "button_disabled"} ${
+              isValid && isChangeProfile && "active"
+            }`}
+            disabled={!isValid || isBloked}
           >
             Сохранить
           </button>

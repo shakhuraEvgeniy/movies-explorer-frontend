@@ -2,13 +2,12 @@ import Auth from "../Auth/Auth";
 import "../Auth/Auth.css";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 
-const Register = ({ onRegister }) => {
-  const { values, handleChange, isValid, errors, resetForm } =
-    useFormWithValidation({
-      emailInput: "",
-      passwordlInput: "",
-      nameInput: "",
-    });
+const Register = ({ onRegister, isBloked }) => {
+  const { values, handleChange, isValid, errors } = useFormWithValidation({
+    emailInput: "",
+    passwordlInput: "",
+    nameInput: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +21,7 @@ const Register = ({ onRegister }) => {
       buttonText="Зарегистрироваться"
       isValid={isValid}
       onSubmit={handleSubmit}
+      isBloked={isBloked}
     >
       <div className="auth__input-block">
         <h3 className="auth__name">Имя</h3>
@@ -31,6 +31,7 @@ const Register = ({ onRegister }) => {
           required
           onChange={handleChange}
           value={values.nameInput || ""}
+          disabled={isBloked}
         ></input>
         <span className="auth__input-error">{errors.nameInput}</span>
       </div>
@@ -43,6 +44,7 @@ const Register = ({ onRegister }) => {
           name="emailInput"
           onChange={handleChange}
           value={values.emailInput || ""}
+          disabled={isBloked}
         ></input>
         <span className="auth__input-error">{errors.emailInput}</span>
       </div>
@@ -55,6 +57,7 @@ const Register = ({ onRegister }) => {
           onChange={handleChange}
           required
           value={values.passwordlInput || ""}
+          disabled={isBloked}
         ></input>
         <span className="auth__input-error">{errors.passwordlInput}</span>
       </div>
