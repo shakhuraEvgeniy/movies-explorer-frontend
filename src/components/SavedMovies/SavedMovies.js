@@ -28,6 +28,10 @@ const SavedMovies = ({
     getMovies();
   }, []);
 
+  useEffect(() => {
+    searchMovies();
+  }, [isShortFilm]);
+
   const getMovies = async () => {
     const saveMovies = await getSaveMovies();
     setMovies(saveMovies);
@@ -38,20 +42,24 @@ const SavedMovies = ({
     setIsShortFilm(!isShortFilm);
   };
 
+  const searchMovies = () => {
+    const findMovies = onSearch(
+      allSavedMovies,
+      values.searchInput,
+      isShortFilm
+    );
+    if (findMovies.length === 0) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+    setMovies(findMovies);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (onCheckValidSearchForm(values.searchInput)) {
-      const findMovies = onSearch(
-        allSavedMovies,
-        values.searchInput,
-        isShortFilm
-      );
-      if (findMovies.length === 0) {
-        setIsNotFound(true);
-      } else {
-        setIsNotFound(false);
-      }
-      setMovies(findMovies);
+      searchMovies();
     }
   };
 

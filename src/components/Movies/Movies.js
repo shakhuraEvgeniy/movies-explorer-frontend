@@ -109,7 +109,6 @@ const Movies = ({
 
   const sortedMovies = async (activMovie) => {
     const saveMovies = await getSaveMovies();
-
     const newArray = activMovie.map((item) => {
       const newItem = saveMovies.find((c) => c.movieId === item.id);
       return newItem ? { ...item, _id: newItem._id } : { ...item, _id: "" };
