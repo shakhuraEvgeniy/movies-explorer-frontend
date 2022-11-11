@@ -116,13 +116,19 @@ const App = () => {
   //--------------обработка фильмов--------------
 
   const searchMovies = (allMovies, searchInpit, isShortFilm) => {
-    return allMovies.filter(
-      (item) =>
-        (item.nameRU.toLowerCase() || item.nameEN.toLowerCase()).includes(
-          searchInpit.toLowerCase()
-        ) &&
-        (isShortFilm ? item.duration <= DURATION_SHORT_FILM : item.duration > 0)
-    );
+    if (allMovies) {
+      return allMovies.filter(
+        (item) =>
+          (item.nameRU.toLowerCase() || item.nameEN.toLowerCase()).includes(
+            searchInpit.toLowerCase()
+          ) &&
+          (isShortFilm
+            ? item.duration <= DURATION_SHORT_FILM
+            : item.duration > 0)
+      );
+    } else {
+      return [];
+    }
   };
 
   const getMovies = async () => {

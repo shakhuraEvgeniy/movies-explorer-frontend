@@ -66,6 +66,10 @@ const Movies = ({
     };
   }, []);
 
+  useEffect(() => {
+    searchMovies();
+  }, [isShortFilm]);
+
   let resizeTimeout;
   function resizeThrottler() {
     if (!resizeTimeout) {
@@ -124,6 +128,21 @@ const Movies = ({
     setMovies(activMovie);
   };
 
+  const searchMovies = () => {
+    const allMovies = JSON.parse(localStorage.getItem("allFindMovies"));
+    const findMovies = onSearch(allMovies, values.searchInput, isShortFilm);
+    if (findMovies.length === 0) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+    saveDataToLS();
+    if (startCountRenderMovies < countRenderMovies)
+      countRenderMovies = startCountRenderMovies;
+    localStorage.setItem("renderMovies", JSON.stringify(findMovies));
+    renderMovies();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (onCheckValidSearchForm(values.searchInput)) {
@@ -135,18 +154,7 @@ const Movies = ({
         const sortMovies = await sortedMovies(data);
         localStorage.setItem("allFindMovies", JSON.stringify(sortMovies));
       }
-      const allMovies = JSON.parse(localStorage.getItem("allFindMovies"));
-      const findMovies = onSearch(allMovies, values.searchInput, isShortFilm);
-      if (findMovies.length === 0) {
-        setIsNotFound(true);
-      } else {
-        setIsNotFound(false);
-      }
-      saveDataToLS();
-      if (startCountRenderMovies < countRenderMovies)
-        countRenderMovies = startCountRenderMovies;
-      localStorage.setItem("renderMovies", JSON.stringify(findMovies));
-      renderMovies();
+      searchMovies();
       setIsLoading(false);
     }
   };
