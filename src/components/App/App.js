@@ -15,6 +15,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import InfoPopup from "../InfoPopup/infoPopup";
 import { useEffect } from "react";
 import * as mainApi from "../../utils/MainApi";
+import * as moviesApi from "../../utils/MoviesApi";
 import { DURATION_SHORT_FILM, POPUP_ACTIV_PERIOD } from "../../utils/constants";
 
 const App = () => {
@@ -34,26 +35,26 @@ const App = () => {
 
   const handleRegisterSubmit = async (email, password, name) => {
     try {
-      setIsBloked(true)
+      setIsBloked(true);
       await mainApi.register(email, password, name);
-      await handleLoginSubmit(email, password)
+      await handleLoginSubmit(email, password);
     } catch (e) {
       openPopup(false, e.message);
     } finally {
-      setIsBloked(false)
+      setIsBloked(false);
     }
   };
 
   const handleLoginSubmit = async (email, password) => {
     try {
-      setIsBloked(true)
+      setIsBloked(true);
       await mainApi.auth(email, password);
       await getDataUser();
       history.push("/movies");
     } catch (e) {
       openPopup(false, e.message);
     } finally {
-      setIsBloked(false)
+      setIsBloked(false);
     }
   };
 
@@ -69,28 +70,28 @@ const App = () => {
 
   const handleLogoutSubmit = async () => {
     try {
-      setIsBloked(true)
+      setIsBloked(true);
       await mainApi.logout();
       setCurrentUser([]);
       setLoggedIn(false);
-      localStorage.clear()
+      localStorage.clear();
     } catch (e) {
       openPopup(false, e.message);
     } finally {
-      setIsBloked(false)
+      setIsBloked(false);
     }
   };
 
   const handleUpdateUser = async (email, name) => {
     try {
-      setIsBloked(true)
+      setIsBloked(true);
       const user = await mainApi.updateUser(email, name);
       openPopup(true, "Данные пользователя обновлены");
       setCurrentUser(user);
     } catch (e) {
       openPopup(false, e.message);
     } finally {
-      setIsBloked(false)
+      setIsBloked(false);
     }
   };
 
@@ -124,20 +125,32 @@ const App = () => {
     );
   };
 
+  const getMovies = async () => {
+    try {
+      setIsBloked(true);
+
+      return await moviesApi.getAllMovies();
+    } catch (e) {
+      openPopup(false, e.message);
+    } finally {
+      setIsBloked(false);
+    }
+  };
+
   const getSaveMovies = async () => {
     try {
-      setIsBloked(true)
+      setIsBloked(true);
       return await mainApi.getSavedMovie();
     } catch (e) {
       openPopup(false, e.message);
     } finally {
-      setIsBloked(false)
+      setIsBloked(false);
     }
   };
 
   const handleLike = async (movie, imageUrl, isLiked) => {
     try {
-      setIsBloked(true)
+      setIsBloked(true);
       return await mainApi.changeLikedMovieStatus({
         ...movie,
         movieId: movie.id,
@@ -147,7 +160,7 @@ const App = () => {
     } catch (e) {
       openPopup(false, e.message);
     } finally {
-      setIsBloked(false)
+      setIsBloked(false);
     }
   };
 
@@ -183,6 +196,7 @@ const App = () => {
             onMovieLike={handleLike}
             onCheckValidSearchForm={checkedValidSearchForm}
             isBloked={isBloked}
+            getMovies={getMovies}
           />
           <ProtectedRoute
             path="/saved-movies"
@@ -204,14 +218,14 @@ const App = () => {
           />
           <Route path="/signin">
             {!loggedIn ? (
-              <Login onLogin={handleLoginSubmit} isBloked={isBloked}/>
+              <Login onLogin={handleLoginSubmit} isBloked={isBloked} />
             ) : (
               <Redirect to="/" />
             )}
           </Route>
           <Route path="/signup">
             {!loggedIn ? (
-              <Register onRegister={handleRegisterSubmit} isBloked={isBloked}/>
+              <Register onRegister={handleRegisterSubmit} isBloked={isBloked} />
             ) : (
               <Redirect to="/" />
             )}

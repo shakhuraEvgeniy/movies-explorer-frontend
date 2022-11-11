@@ -6,7 +6,6 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import "./Movies.css";
-import * as moviesApi from "../../utils/MoviesApi";
 import { useState } from "react";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import NotFoundMovies from "../NotFoundMovies/NotFoundMovies";
@@ -27,6 +26,8 @@ const Movies = ({
   getSaveMovies,
   onMovieLike,
   onCheckValidSearchForm,
+  getMovies,
+  isBloked,
 }) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +37,6 @@ const Movies = ({
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
   const [isActivAdd, setIsActivAdd] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
 
   let startCountRenderMovies =
     window.screen.width >= 1280
@@ -46,8 +46,6 @@ const Movies = ({
       : COUNT_MOVIES_480;
 
   useEffect(() => {
-    localStorage.getItem("renderMovies") &&
-      setMovies(JSON.parse(localStorage.getItem("renderMovies")));
     localStorage.getItem("searchInput") &&
       setValues({
         ...values,
@@ -55,8 +53,14 @@ const Movies = ({
       });
     localStorage.getItem("filterCheckbox") &&
       setIsShortFilm(JSON.parse(localStorage.getItem("filterCheckbox")));
-    getSavedMovies();
+
+    const allMovies = localStorage.getItem("allFindMovies")
+      ? JSON.parse(localStorage.getItem("allFindMovies"))
+      : [];
+    allMovies && sortedMovies(allMovies);
     window.addEventListener("resize", resizeThrottler, false);
+
+    localStorage.getItem("renderMovies") && sortRenderMovies();
     return () => {
       window.addEventListener("resize", resizeThrottler, false);
     };
@@ -87,23 +91,11 @@ const Movies = ({
     }
   }
 
-  const getSavedMovies = async () => {
-    const saveMovies = await getSaveMovies();
-    setSavedMovies(saveMovies);
-  };
-
-  const getMovies = async () => {
-    try {
-      setIsNotFound(false);
-      setIsLoading(true);
-      setMovies([]);
-      const data = await moviesApi.getAllMovies();
-      return data;
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsLoading(false);
-    }
+  const sortRenderMovies = async () => {
+    const saveRenderMovies = JSON.parse(localStorage.getItem("renderMovies"));
+    const sortSaveMovies = await sortedMovies(saveRenderMovies);
+    localStorage.setItem("renderMovies", JSON.stringify(sortSaveMovies));
+    renderMovies();
   };
 
   const saveDataToLS = () => {
@@ -111,35 +103,40 @@ const Movies = ({
     localStorage.setItem("filterCheckbox", JSON.stringify(isShortFilm));
   };
 
-  const sortedMovies = (activMovie) => {
+  const sortedMovies = async (activMovie) => {
+    const saveMovies = await getSaveMovies();
+
     const newArray = activMovie.map((item) => {
-      const newItem = savedMovies.find((c) => c.movieId === item.id);
-      return newItem ? { ...item, _id: newItem._id, liked: true } : item;
+      const newItem = saveMovies.find((c) => c.movieId === item.id);
+      return newItem ? { ...item, _id: newItem._id } : { ...item, _id: "" };
     });
-    setMovies(newArray);
     return newArray;
   };
 
   const renderMovies = () => {
-    const allFindMovies = localStorage.getItem("allFindMovies")
-      ? JSON.parse(localStorage.getItem("allFindMovies"))
+    const allFindMovies = localStorage.getItem("renderMovies")
+      ? JSON.parse(localStorage.getItem("renderMovies"))
       : [];
     const activMovie = allFindMovies.slice(0, countRenderMovies);
     activMovie.length < allFindMovies.length
       ? setIsActivAdd(true)
       : setIsActivAdd(false);
-    const sortMovies = sortedMovies(activMovie);
-    localStorage.setItem("renderMovies", JSON.stringify(sortMovies));
+    setMovies(activMovie);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (onCheckValidSearchForm(values.searchInput)) {
+      setIsLoading(true);
       setIsActivAdd(false);
-      const data = await getMovies();
-
-      const findMovies = onSearch(data, values.searchInput, isShortFilm);
-      localStorage.setItem("allFindMovies", JSON.stringify(findMovies));
+      setIsNotFound(false);
+      if (!localStorage.getItem("allFindMovies")) {
+        const data = await getMovies();
+        const sortMovies = await sortedMovies(data);
+        localStorage.setItem("allFindMovies", JSON.stringify(sortMovies));
+      }
+      const allMovies = JSON.parse(localStorage.getItem("allFindMovies"));
+      const findMovies = onSearch(allMovies, values.searchInput, isShortFilm);
       if (findMovies.length === 0) {
         setIsNotFound(true);
       } else {
@@ -148,7 +145,9 @@ const Movies = ({
       saveDataToLS();
       if (startCountRenderMovies < countRenderMovies)
         countRenderMovies = startCountRenderMovies;
+      localStorage.setItem("renderMovies", JSON.stringify(findMovies));
       renderMovies();
+      setIsLoading(false);
     }
   };
 
@@ -188,6 +187,7 @@ const Movies = ({
           onSubmit={handleSubmit}
           onChange={handleChange}
           values={values}
+          isBloked={isBloked}
         />
         <FilterCheckbox onChange={handleCheckbox} checked={isShortFilm} />
         <MoviesCardList saved={false} cards={movies} onMovieLike={handleLike} />

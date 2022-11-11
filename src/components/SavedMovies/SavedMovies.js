@@ -30,7 +30,6 @@ const SavedMovies = ({
 
   const getMovies = async () => {
     const saveMovies = await getSaveMovies();
-    console.log(saveMovies);
     setMovies(saveMovies);
     setAllSavedMovies(saveMovies);
   };
