@@ -67,8 +67,16 @@ const Movies = ({
   }, []);
 
   useEffect(() => {
-    searchMovies();
+    values.searchInput && searchMovies();
   }, [isShortFilm]);
+
+  useEffect(()=>{
+    if (movies.length === 0) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+  }, [movies])
 
   let resizeTimeout;
   function resizeThrottler() {
@@ -130,11 +138,6 @@ const Movies = ({
   const searchMovies = () => {
     const allMovies = JSON.parse(localStorage.getItem("allFindMovies"));
     const findMovies = onSearch(allMovies, values.searchInput, isShortFilm);
-    if (findMovies.length === 0) {
-      setIsNotFound(true);
-    } else {
-      setIsNotFound(false);
-    }
     saveDataToLS();
     if (startCountRenderMovies < countRenderMovies)
       countRenderMovies = startCountRenderMovies;

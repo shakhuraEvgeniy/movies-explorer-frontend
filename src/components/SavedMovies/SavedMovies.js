@@ -25,12 +25,20 @@ const SavedMovies = ({
   const [isShortFilm, setIsShortFilm] = useState(false);
 
   useEffect(() => {
-    getMovies();
-  }, []);
-
-  useEffect(() => {
     searchMovies();
   }, [isShortFilm]);
+
+  useEffect(()=>{
+    if (movies.length === 0) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+  }, [movies])
+
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   const getMovies = async () => {
     const saveMovies = await getSaveMovies();
@@ -48,11 +56,6 @@ const SavedMovies = ({
       values.searchInput,
       isShortFilm
     );
-    if (findMovies.length === 0) {
-      setIsNotFound(true);
-    } else {
-      setIsNotFound(false);
-    }
     setMovies(findMovies);
   };
 
