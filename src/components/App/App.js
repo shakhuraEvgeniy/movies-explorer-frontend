@@ -33,6 +33,17 @@ const App = () => {
     getDataUser();
   }, []);
 
+  const handlerError = async (e) => {
+
+    if (e.status === 401) {
+      setCurrentUser([]);
+      localStorage.clear();
+      setLoggedIn(false)
+    }
+    const err = await e.json();
+    openPopup(false, err.message);
+  }
+
   const handleRegisterSubmit = async (email, password, name) => {
     try {
       setIsBloked(true);
@@ -52,7 +63,7 @@ const App = () => {
       await getDataUser();
       history.push("/movies");
     } catch (e) {
-      openPopup(false, e.message);
+      handlerError(e);
     } finally {
       setIsBloked(false);
     }
@@ -64,7 +75,7 @@ const App = () => {
       setCurrentUser(user);
       setLoggedIn(true);
     } catch (e) {
-      openPopup(false, e.message);
+      handlerError(e);
     }
   };
 
@@ -76,7 +87,7 @@ const App = () => {
       setLoggedIn(false);
       localStorage.clear();
     } catch (e) {
-      openPopup(false, e.message);
+      handlerError(e);
     } finally {
       setIsBloked(false);
     }
@@ -89,7 +100,7 @@ const App = () => {
       openPopup(true, "Данные пользователя обновлены");
       setCurrentUser(user);
     } catch (e) {
-      openPopup(false, e.message);
+      handlerError(e);
     } finally {
       setIsBloked(false);
     }
@@ -137,7 +148,7 @@ const App = () => {
 
       return await moviesApi.getAllMovies();
     } catch (e) {
-      openPopup(false, e.message);
+      handlerError(e);
     } finally {
       setIsBloked(false);
     }
@@ -148,7 +159,7 @@ const App = () => {
       setIsBloked(true);
       return await mainApi.getSavedMovie();
     } catch (e) {
-      openPopup(false, e.message);
+      handlerError(e);
     } finally {
       setIsBloked(false);
     }
@@ -164,7 +175,7 @@ const App = () => {
         isLiked,
       });
     } catch (e) {
-      openPopup(false, e.message);
+      handlerError(e);
     } finally {
       setIsBloked(false);
     }

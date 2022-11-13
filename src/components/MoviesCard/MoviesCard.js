@@ -6,9 +6,14 @@ import "./MoviesCard.css";
 const MoviesCard = ({ card, saved, onMovieLike }) => {
   const { image, nameRU, duration, trailerLink, _id } = card;
   const [isLiked, setIsLiked] = useState(_id ? true : false);
-  const handleLiked = () => {
-    onMovieLike(card, imageUrl, isLiked);
-    saved || setIsLiked(!isLiked);
+
+  const handleLiked = async () => {
+    try {
+      await onMovieLike(card, imageUrl, isLiked);
+      saved || setIsLiked(!isLiked);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const imageUrl = image.url ? IMAGE_URL + image.url : image;

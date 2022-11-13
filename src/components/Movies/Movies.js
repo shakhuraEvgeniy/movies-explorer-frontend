@@ -71,7 +71,7 @@ const Movies = ({
   }, [isShortFilm]);
 
   useEffect(()=>{
-    if (movies.length === 0) {
+    if (movies.length === 0 && values.searchInput) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
