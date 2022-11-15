@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory, useLocation } from "react-router-dom";
 import "./App.css";
 import Main from "../Main/Main";
 import NotFound from "../NotFound/NotFound";
@@ -7,8 +7,6 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useState } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
@@ -20,12 +18,13 @@ import { DURATION_SHORT_FILM, POPUP_ACTIV_PERIOD } from "../../utils/constants";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState([]);
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
   const [isSuccessInfoPopup, setIsSuccessInfoPopup] = useState(false);
   const [textInfoPopup, setTextInfoPopup] = useState("");
   const [isBloked, setIsBloked] = useState(false);
   const history = useHistory();
+  const location = useLocation();
 
   //-----------Обработка пользователя--------------
 
@@ -34,15 +33,17 @@ const App = () => {
   }, []);
 
   const handlerError = async (e) => {
-
+    if (e.status === 401 && currentUser.length === 0) {
+      return
+    }
     if (e.status === 401) {
       setCurrentUser([]);
       localStorage.clear();
-      setLoggedIn(false)
+      setLoggedIn(false);
     }
     const err = await e.json();
     openPopup(false, err.message);
-  }
+  };
 
   const handleRegisterSubmit = async (email, password, name) => {
     try {
@@ -74,6 +75,7 @@ const App = () => {
       const user = await mainApi.getUser();
       setCurrentUser(user);
       setLoggedIn(true);
+      history.replace(location.pathname);
     } catch (e) {
       handlerError(e);
     }
@@ -199,11 +201,6 @@ const App = () => {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Switch>
-          <Route exact path="/">
-            <Header loggedIn={loggedIn} dark={true} />
-            <Main />
-            <Footer />
-          </Route>
           <ProtectedRoute
             path="/movies"
             loggedIn={loggedIn}
@@ -247,12 +244,15 @@ const App = () => {
               <Redirect to="/" />
             )}
           </Route>
-          <Route>
-            {loggedIn ? <Redirect exact to="/movies" /> : <Redirect to="/" />}
+          <Route exact path="/">
+            <Main loggedIn={loggedIn} dark={true}/>
           </Route>
-          <Route path="*">
+          <Route>
             <NotFound />
           </Route>
+          {/* <Route>
+            {loggedIn ? <Redirect exact to="/movies" /> : <Redirect to="/" />}
+          </Route> */}
         </Switch>
         <InfoPopup
           isSuccess={isSuccessInfoPopup}
