@@ -28,13 +28,13 @@ const SavedMovies = ({
     searchMovies();
   }, [isShortFilm]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (movies.length === 0) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
     }
-  }, [movies])
+  }, [movies]);
 
   useEffect(() => {
     getMovies();

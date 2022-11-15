@@ -70,13 +70,13 @@ const Movies = ({
     values.searchInput && searchMovies();
   }, [isShortFilm]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (movies.length === 0 && values.searchInput) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
     }
-  }, [movies])
+  }, [movies]);
 
   let resizeTimeout;
   function resizeThrottler() {

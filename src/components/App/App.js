@@ -1,4 +1,10 @@
-import { Route, Switch, Redirect, useHistory, useLocation } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import "./App.css";
 import Main from "../Main/Main";
 import NotFound from "../NotFound/NotFound";
@@ -34,7 +40,7 @@ const App = () => {
 
   const handlerError = async (e) => {
     if (e.status === 401 && currentUser.length === 0) {
-      return
+      return;
     }
     if (e.status === 401) {
       setCurrentUser([]);
@@ -245,14 +251,11 @@ const App = () => {
             )}
           </Route>
           <Route exact path="/">
-            <Main loggedIn={loggedIn} dark={true}/>
+            <Main loggedIn={loggedIn} dark={true} />
           </Route>
           <Route>
             <NotFound />
           </Route>
-          {/* <Route>
-            {loggedIn ? <Redirect exact to="/movies" /> : <Redirect to="/" />}
-          </Route> */}
         </Switch>
         <InfoPopup
           isSuccess={isSuccessInfoPopup}
