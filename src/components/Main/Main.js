@@ -7,7 +7,7 @@ import AboutMe from "../AboutMe/AboutMe";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-const Main = (loggedIn, dark) => {
+const Main = ({loggedIn, dark}) => {
   return (
     <main className="main">
       <Header loggedIn={loggedIn} dark={dark} />

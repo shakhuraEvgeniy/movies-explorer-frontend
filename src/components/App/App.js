@@ -57,7 +57,7 @@ const App = () => {
       await mainApi.register(email, password, name);
       await handleLoginSubmit(email, password);
     } catch (e) {
-      openPopup(false, e.message);
+      handlerError(e);
     } finally {
       setIsBloked(false);
     }
