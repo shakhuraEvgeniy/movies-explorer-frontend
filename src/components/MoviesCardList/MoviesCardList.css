@@ -1,7 +1,7 @@
 .movies-card-list {
   margin: 15px auto 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(339px, 1fr));
+  grid-template-columns: repeat(auto-fit, 364px);
   justify-content: center;
   gap: 30px 24px;
   padding-top: 80px;
@@ -10,6 +10,7 @@
 
 @media screen and (max-width: 768px) {
   .movies-card-list {
+    grid-template-columns: repeat(auto-fit, 339px);
     margin-top: 23px;
     gap: 36px 30px;
   }
@@ -20,7 +21,7 @@
     margin-top: 35px;
     gap: 16px 30px;
     padding-top: 50px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, 300px);
   }
 
 }

@@ -1,6 +1,7 @@
 .auth {
   width: 396px;
-  margin: 70px auto 0;
+  margin: 0 auto;
+  padding-top: 70px;
 }
 
 .auth__logo {
@@ -45,6 +46,12 @@
   height: 45px;
   margin-top: 77px;
   cursor: pointer;
+}
+
+.auth__submit_disabled {
+  background: #F8F8F8;
+  color: #C2C2C2;
+
 }
 
 .auth__caption {
