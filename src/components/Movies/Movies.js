@@ -10,15 +10,15 @@ import { useState } from "react";
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import NotFoundMovies from "../NotFoundMovies/NotFoundMovies";
 import {
-  ADD_MOVIES_1280,
-  ADD_MOVIES_480,
-  ADD_MOVIES_768,
-  COUNT_MOVIES_1280,
-  COUNT_MOVIES_480,
-  COUNT_MOVIES_768,
+  ADD_MOVIES_DESKTOP,
+  ADD_MOVIES_MOBILE,
+  ADD_MOVIES_TABLET,
+  COUNT_MOVIES_DESKTOP,
+  COUNT_MOVIES_MOBILE,
+  COUNT_MOVIES_TABLET,
 } from "../../utils/constants";
 
-let countRenderMovies = COUNT_MOVIES_1280;
+let countRenderMovies = COUNT_MOVIES_DESKTOP;
 
 const Movies = ({
   loggedIn,
@@ -40,10 +40,10 @@ const Movies = ({
 
   let startCountRenderMovies =
     window.screen.width >= 1280
-      ? COUNT_MOVIES_1280
+      ? COUNT_MOVIES_DESKTOP
       : window.screen.width >= 768
-      ? COUNT_MOVIES_768
-      : COUNT_MOVIES_480;
+      ? COUNT_MOVIES_TABLET
+      : COUNT_MOVIES_MOBILE;
 
   useEffect(() => {
     localStorage.getItem("searchInput") &&
@@ -62,7 +62,7 @@ const Movies = ({
 
     localStorage.getItem("renderMovies") && sortRenderMovies();
     return () => {
-      window.addEventListener("resize", resizeThrottler, false);
+      window.removeEventListener("resize", resizeThrottler, false);
     };
   }, []);
 
@@ -90,14 +90,14 @@ const Movies = ({
 
   function actualResizeHandler() {
     if (window.screen.width >= 1280) {
-      countRenderMovies = COUNT_MOVIES_1280;
+      countRenderMovies = COUNT_MOVIES_DESKTOP;
       renderMovies();
     } else {
       if (window.screen.width >= 768) {
-        countRenderMovies = COUNT_MOVIES_768;
+        countRenderMovies = COUNT_MOVIES_TABLET;
         renderMovies();
       } else {
-        countRenderMovies = COUNT_MOVIES_480;
+        countRenderMovies = COUNT_MOVIES_MOBILE;
         renderMovies();
       }
     }
@@ -168,12 +168,12 @@ const Movies = ({
   const addMovies = () => {
     let countAdd;
     if (window.screen.width >= 1280) {
-      countAdd = ADD_MOVIES_1280;
+      countAdd = ADD_MOVIES_DESKTOP;
     } else {
       if (window.screen.width >= 768) {
-        countAdd = ADD_MOVIES_768;
+        countAdd = ADD_MOVIES_TABLET;
       } else {
-        countAdd = ADD_MOVIES_480;
+        countAdd = ADD_MOVIES_MOBILE;
       }
     }
     countRenderMovies = countRenderMovies + countAdd;
