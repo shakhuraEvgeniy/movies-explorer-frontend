@@ -33,7 +33,7 @@
 
 .profile__name {
   margin: 0;
-  width: 141px;
+  width: 41px;
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
@@ -58,7 +58,7 @@
 }
 
 .profile__input-error {
-  width: 410px;
+  width: 100%;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
@@ -138,14 +138,19 @@
   .profile__edit {
     margin-top: 195px;
   }
+  .profile__submit {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 480px) {
+
   .profile__title {
     margin-top: 70px;
   }
   .profile__form {
     margin-top: 62px;
+      width: 100%;
   }
   .profile__edit {
     margin-top: 362px;

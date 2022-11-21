@@ -20,9 +20,8 @@ const Profile = ({ loggedIn, onLogout, onUpdate, isBloked }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await onUpdate(values.emailInput, values.nameInput);
-    setEdit(false);
+      e.preventDefault();
+      await onUpdate(values.emailInput, values.nameInput);
   };
 
   useEffect(() => {
@@ -31,6 +30,7 @@ const Profile = ({ loggedIn, onLogout, onUpdate, isBloked }) => {
       emailInput: currentUser.email,
       nameInput: currentUser.name,
     });
+    setEdit(false);
   }, [currentUser]);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const Profile = ({ loggedIn, onLogout, onUpdate, isBloked }) => {
             className={`profile__submit ${edit || "button_disabled"} ${
               isValid && isChangeProfile && "active"
             }`}
-            disabled={!isValid || isBloked}
+            disabled={!isValid || isBloked || !isChangeProfile}
           >
             Сохранить
           </button>

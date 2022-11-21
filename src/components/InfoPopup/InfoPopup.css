@@ -60,3 +60,10 @@
   margin: 0 33px 0 10px;
   text-align: left;
 }
+
+@media screen and (max-width: 520px) {
+  .infoPopup {
+    right: 14px;
+    width: 280px;
+  }
+}
